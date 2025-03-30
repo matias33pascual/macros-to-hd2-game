@@ -121,7 +121,7 @@
   },
   {
     "id": "015",
-    "name": "ROVER PERRO GUARDIAN",
+    "name": "AX/LAS-5 Guard Dog Rover",
     "type": "backpacks",
     "icon": "assets/icons/Guard-Dog-Rover.webp",
     "keysCode": ["down", "up", "left", "up", "right", "right"],
@@ -145,15 +145,15 @@
   },
   {
     "id": "018",
-    "name": "PERRO GUARDIAN",
+    "name": "AX/AR-23 Guard Dog",
     "type": "backpacks",
     "icon": "assets/icons/Guard-Dog.webp",
     "keysCode": ["down", "up", "left", "up", "right", "down"],
-    "cooldown": "300"
+    "cooldown": "480"
   },
   {
     "id": "019",
-    "name": "EMPLAZAMIENTO AP",
+    "name": "E/MG-101 HMG Emplacement",
     "type": "defenses",
     "icon": "assets/icons/HGM-Emplacement.webp",
     "keysCode": ["down", "up", "left", "right", "right", "left"],
@@ -509,6 +509,110 @@
     "type": "backpacks",
     "icon": "assets/icons/dogbreath.webp",
     "keysCode": ["down", "up", "left", "up", "right", "up"],
+    "cooldown": "480"
+  },
+  {
+    "id": "064",
+    "name": "StA-X3 W.A.S.P. Launcher",
+    "type": "weapons",
+    "icon": "assets/icons/wasp-launcher.webp",
+    "keysCode": ["down", "down", "up", "down", "right"],
+    "cooldown": "480"
+  },
+  {
+    "id": "065",
+    "name": "Orbital Railcannon Strike",
+    "type": "orbital",
+    "icon": "assets/icons/Orbital_Railcannon_Strike_Stratagem.webp",
+    "keysCode": ["right", "up", "down", "down", "right"],
+    "cooldown": "210"
+  },
+  {
+    "id": "066",
+    "name": "M-102 Fast Reconnaissance Vehicle",
+    "type": "weapons",
+    "icon": "assets/icons/M-102_Fast_Recon_Vehicle_Stratagem.webp",
+    "keysCode": ["left", "down", "right", "down", "right", "down", "up"],
+    "cooldown": "480"
+  },
+  {
+    "id": "067",
+    "name": "Orbital EMS Strike",
+    "type": "orbital",
+    "icon": "assets/icons/Orbital_EMS_Strike_Stratagem_Icon.webp",
+    "keysCode": ["right", "right", "left", "down"],
+    "cooldown": "75"
+  },
+  {
+    "id": "068",
+    "name": "E/GL-21 Grenadier Battlement",
+    "type": "defenses",
+    "icon": "assets/icons/GL-21_Grenadier_Battlement_Stratagem_Icon.webp",
+    "keysCode": ["down", "right", "down", "left", "right"],
+    "cooldown": "120"
+  },
+  {
+    "id": "069",
+    "name": "E/GL-21 Grenadier Battlement",
+    "type": "defenses",
+    "icon": "assets/icons/GL-21_Grenadier_Battlement_Stratagem_Icon.webp",
+    "keysCode": ["down", "right", "down", "left", "right"],
+    "cooldown": "120"
+  },
+  {
+    "id": "070",
+    "name": "MD-17 Anti-Tank Mines",
+    "type": "defenses",
+    "icon": "assets/icons/MD-17_Anti-Tank_Mines_Stratagem_Icon.webp",
+    "keysCode": ["down", "left", "up", "up"],
+    "cooldown": "120"
+  },
+  {
+    "id": "071",
+    "name": "MD-8 Gas Mines",
+    "type": "defenses",
+    "icon": "assets/icons/Gas_Minefield_Stratagem_Icon.webp",
+    "keysCode": ["down", "left", "left", "right"],
+    "cooldown": "120"
+  },
+  {
+    "id": "072",
+    "name": "SH-51 Directional Shield",
+    "type": "backpacks",
+    "icon": "assets/icons/SH-51_Directional_Shield_Stratagem_Icon.webp",
+    "keysCode": ["down", "up", "left", "right", "up", "up"],
+    "cooldown": "300"
+  },
+  {
+    "id": "073",
+    "name": "E/AT-12 Anti-Tank Emplacement",
+    "type": "defenses",
+    "icon": "assets/icons/E_AT-12_Anti-Tank_Emplacement_Stratagem_Icon.webp",
+    "keysCode": ["down", "up", "left", "right", "right", "right"],
+    "cooldown": "180"
+  },
+  {
+    "id": "074",
+    "name": "A/FLAM-40 Flame Sentry",
+    "type": "defenses",
+    "icon": "assets/icons/A_FLAM-40_Flame_Sentry_Stratagem_Icon.webp",
+    "keysCode": ["down", "up", "right", "down", "up", "up"],
+    "cooldown": "150"
+  },
+  {
+    "id": "075",
+    "name": "B-100 Portable Hellbomb",
+    "type": "backpacks",
+    "icon": "assets/icons/Portable_Hellbomb_Stratagem_Icon.webp",
+    "keysCode": ["down", "right", "up", "up", "up"],
+    "cooldown": "300"
+  },
+  {
+    "id": "076",
+    "name": "LIFT-860 Hover Pack",
+    "type": "backpacks",
+    "icon": "assets/icons/Hover_Pack_Stratagem_Icon.webp",
+    "keysCode": ["down", "up", "up", "down", "left", "right"],
     "cooldown": "480"
   }
 ]

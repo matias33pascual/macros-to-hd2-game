@@ -311,6 +311,54 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 16),
+                          GestureDetector(
+                            onTap: _openByMeCoffeURL,
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(0),
+                                border: Border.fromBorderSide(
+                                  BorderSide(
+                                      width: 1,
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                ),
+                                color: Color.fromARGB(255, 0, 0, 0)
+                                    .withOpacity(0.8),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(2),
+                                    width: 40,
+                                    child: Text(
+                                      '☕',
+                                      style: TextStyle(fontSize: 32),
+                                    ),
+                                  ),
+                                  SizedBox(width: 6),
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        CustomText(
+                                          text: translationProvider
+                                              .translationTextOf["support"],
+                                          size: 14,
+                                          textColor: Colors.white,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ])
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -420,6 +468,42 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ));
+  }
+
+  void _openByMeCoffeURL() {
+    final TranslationProvider provider =
+        Provider.of<TranslationProvider>(context, listen: false);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(provider.translationTextOf["support_thanks"]),
+          backgroundColor: Colors.black,
+          titleTextStyle: const TextStyle(color: Colors.amber),
+          contentTextStyle: const TextStyle(color: Colors.white, fontSize: 16),
+          shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.amber, width: 1)),
+          insetPadding: const EdgeInsets.all(24),
+          contentPadding: const EdgeInsets.all(24),
+          content: Text(provider.translationTextOf["support_content"]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(provider.translationTextOf["support_cancel"]),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+                final url = Uri.https('buymeacoffee.com', 'matias33pascual');
+                launchUrl(url, mode: LaunchMode.externalApplication);
+              },
+              child: Text(provider.translationTextOf["support_continue"]),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _openDownloadURL() {

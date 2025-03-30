@@ -20,5 +20,11 @@
   "stratagems_orbital": "ORBITAL",
   "stratagems_weapons": "ARMAS",
   "stratagems_backpacks": "MOCHILAS",
-  "language": "IDIOMA"
+  "language": "IDIOMA",
+  "support": "PRÓXIMAS ATUALIZAÇÕES",
+  "support_title": "Próximas Atualizações",
+  "support_thanks": "Obrigado pelo seu apoio!",
+  "support_content": "O aplicativo é atualizado graças ao suporte dos usuários. Se você gosta do aplicativo, considere fazer uma doação para me ajudar a mantê-lo atualizado. Deseja continuar?",
+  "support_continue": "Doar",
+  "support_cancel": "Cancelar"
 }
