@@ -24,14 +24,13 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color == CustomButtonColors.gray
-            ? Colors.grey.withOpacity(0.1)
-            : Colors.amber.withOpacity(0.1),
+        color:
+            color == CustomButtonColors.gray ? Colors.grey.withValues(alpha: 0.1) : Colors.amber.withValues(alpha: 0.1),
         border: Border.all(
           width: 2,
           color: color == CustomButtonColors.yellow
-              ? Colors.amber.withOpacity(0.6)
-              : Colors.grey.withOpacity(0.4),
+              ? Colors.amber.withValues(alpha: 0.6)
+              : Colors.grey.withValues(alpha: 0.4),
         ),
         borderRadius: BorderRadius.zero,
       ),
@@ -43,8 +42,8 @@ class CustomButton extends StatelessWidget {
           text: text,
           size: fontSize,
           textColor: color == CustomButtonColors.yellow
-              ? Colors.yellow[400]!.withOpacity(0.9)
-              : Colors.grey.withOpacity(0.6),
+              ? Colors.yellow[400]!.withValues(alpha: 0.9)
+              : Colors.grey.withValues(alpha: 0.6),
         ),
       ),
     );

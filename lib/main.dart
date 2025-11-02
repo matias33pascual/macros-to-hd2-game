@@ -15,13 +15,16 @@ const useDevMode = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await WakelockPlus.enable();
+
+  ConnectButtonProvider connectButtonProvider = ConnectButtonProvider();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomeProvider()),
-        ChangeNotifierProvider(create: (_) => ConnectButtonProvider()),
+        ChangeNotifierProvider(create: (_) => connectButtonProvider),
+        ChangeNotifierProvider(create: (_) => HomeProvider(connectButtonProvider: connectButtonProvider)),
         ChangeNotifierProvider(create: (_) => StratagemsProvider()),
         ChangeNotifierProvider(create: (_) => TabsMenuProvider()),
         ChangeNotifierProvider(create: (_) => SelectedProvider()),

@@ -64,50 +64,45 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> showMyDialog(BuildContext context) async {
-    await Future.delayed(Duration.zero);
+    final TranslationProvider provider = Provider.of<TranslationProvider>(context, listen: false);
 
-    if (mounted) {
-      final TranslationProvider provider = Provider.of<TranslationProvider>(context, listen: false);
+    if (!mounted) return;
 
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          backgroundColor: Colors.black,
-          insetPadding: const EdgeInsets.all(24),
-          contentPadding: const EdgeInsets.all(24),
-          shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.amber, width: 1)),
-          title: CustomText(
-              maxLines: 10, size: 16, textAlign: TextAlign.center, text: provider.translationTextOf["error_title"]),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomText(
-                  maxLines: 20,
-                  size: 14,
-                  textAlign: TextAlign.center,
-                  text: provider.translationTextOf["error_message"]),
-              SizedBox(height: 8),
-              CustomText(
-                  maxLines: 20,
-                  size: 14,
-                  textAlign: TextAlign.center,
-                  strokeColor: Colors.black,
-                  textColor: Colors.amber,
-                  text: " Macros to HD2 Game PC"),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: CustomButton(
-                  color: CustomButtonColors.yellow, text: provider.translationTextOf["close_button"], height: 40),
-            ),
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.black,
+        insetPadding: const EdgeInsets.all(24),
+        contentPadding: const EdgeInsets.all(24),
+        shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.amber, width: 1)),
+        title: CustomText(
+            maxLines: 10, size: 16, textAlign: TextAlign.center, text: provider.translationTextOf["error_title"]),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomText(
+                maxLines: 20, size: 14, textAlign: TextAlign.center, text: provider.translationTextOf["error_message"]),
+            SizedBox(height: 8),
+            CustomText(
+                maxLines: 20,
+                size: 14,
+                textAlign: TextAlign.center,
+                strokeColor: Colors.black,
+                textColor: Colors.amber,
+                text: " Macros to HD2 Game PC"),
           ],
         ),
-      );
-    }
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: CustomButton(
+                color: CustomButtonColors.yellow, text: provider.translationTextOf["close_button"], height: 40),
+          ),
+        ],
+      ),
+    );
   }
 
   _buildMacroTitle() {
@@ -124,14 +119,14 @@ class _HomePageState extends State<HomePage> {
                   maxLines: 2,
                   size: 35,
                   textColor: Colors.white,
-                  strokeColor: Colors.black.withOpacity(0.8),
+                  strokeColor: Colors.black.withValues(alpha: 0.8),
                   fontFamily: "helldivers"),
               CustomText(
                   text: "HD2 Game",
                   maxLines: 2,
                   size: 55,
                   textColor: Colors.amber[400]!,
-                  strokeColor: Colors.black.withOpacity(0.8),
+                  strokeColor: Colors.black.withValues(alpha: 0.8),
                   fontFamily: "helldivers"),
             ],
           ),
@@ -179,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                                 border: Border.fromBorderSide(
                                   BorderSide(width: 2, color: Colors.grey),
                                 ),
-                                color: Colors.grey.withOpacity(0.5),
+                                color: Colors.grey.withValues(alpha: 0.5),
                               ),
                               child: Row(
                                 children: [
@@ -207,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                                 border: Border.fromBorderSide(
                                   BorderSide(width: 2, color: Colors.orange[500]!),
                                 ),
-                                color: Colors.orange[300]!.withOpacity(0.5),
+                                color: Colors.orange[300]!.withValues(alpha: 0.5),
                               ),
                               child: Row(
                                 children: [
@@ -236,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                                 border: Border.fromBorderSide(
                                   BorderSide(width: 2, color: Colors.red[300]!),
                                 ),
-                                color: Colors.red[500]!.withOpacity(0.5),
+                                color: Colors.red[500]!.withValues(alpha: 0.5),
                               ),
                               child: Row(
                                 children: [
@@ -265,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                                 border: Border.fromBorderSide(
                                   BorderSide(width: 2, color: Colors.blue[200]!),
                                 ),
-                                color: Colors.blue[300]!.withOpacity(0.7),
+                                color: Colors.blue[300]!.withValues(alpha: 0.7),
                               ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -279,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                                     CustomText(
                                       text: translationProvider.translationTextOf["download_pc"],
-                                      size: 16,
+                                      size: 14,
                                       textColor: Colors.white,
                                     ),
                                     SizedBox(width: 8),
@@ -310,7 +305,7 @@ class _HomePageState extends State<HomePage> {
 
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.grey[900]!.withOpacity(0.8),
+        backgroundColor: Colors.grey[900]!.withValues(alpha: 0.8),
         shape: RoundedRectangleBorder(
             side: BorderSide(width: 1, color: Colors.grey[600]!),
             borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
@@ -464,6 +459,7 @@ class _HomePageState extends State<HomePage> {
                 GestureDetector(
                   onTap: () {
                     final HomeProvider provider = Provider.of<HomeProvider>(context, listen: false);
+                    final NavigatorState navigator = Navigator.of(context);
 
                     if (provider.state.port.isEmpty || provider.state.ipAddrress.isEmpty || provider.state.isLoading) {
                       return;
@@ -479,7 +475,7 @@ class _HomePageState extends State<HomePage> {
                           .then(
                         (value) {
                           if (value) {
-                            Navigator.pushNamed(context, StratagemsPage.routeName);
+                            navigator.pushNamed(StratagemsPage.routeName);
                           } else {
                             if (kDebugMode) {
                               print("No se pudo conectar al servidor: ConnectionService return false.");
@@ -517,7 +513,7 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.amber[500]!.withOpacity(0.6),
+            color: Colors.amber[500]!.withValues(alpha: 0.6),
             width: 2,
           ),
         ),
@@ -534,7 +530,7 @@ class _HomePageState extends State<HomePage> {
             size: 16,
             maxLines: 2,
             textColor: Colors.white,
-            strokeColor: Colors.black.withOpacity(0.7),
+            strokeColor: Colors.black.withValues(alpha: 0.7),
             textAlign: TextAlign.center,
           ),
           CustomText(
@@ -542,7 +538,7 @@ class _HomePageState extends State<HomePage> {
             size: 16,
             maxLines: 2,
             textColor: Colors.amber,
-            strokeColor: Colors.black.withOpacity(0.7),
+            strokeColor: Colors.black.withValues(alpha: 0.7),
             textAlign: TextAlign.center,
           ),
         ],
@@ -552,11 +548,11 @@ class _HomePageState extends State<HomePage> {
 
   _buildPanel() {
     return Container(
-      height: 230,
+      height: 240,
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.7),
+        color: Colors.black.withValues(alpha: 0.7),
         border: Border.all(
-          color: Colors.amber[500]!.withOpacity(0.6),
+          color: Colors.amber[500]!.withValues(alpha: 0.6),
           width: 2,
         ),
       ),

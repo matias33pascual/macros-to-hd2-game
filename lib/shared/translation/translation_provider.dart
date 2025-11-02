@@ -11,34 +11,26 @@ class TranslationProvider extends ChangeNotifier {
 
   Future<void> init(BuildContext context) async {
     await loadLanguageFiles().then(
-      (_) => getCurrentLanguage(context),
+      (_) => getCurrentLanguage(),
     );
   }
 
   Future loadLanguageFiles() async {
-    state.spanishTranslation =
-        await service.loadLanguages(LanguagesEnum.spanish.code);
+    state.spanishTranslation = await service.loadLanguages(LanguagesEnum.spanish.code);
 
-    state.portugueseTranslation =
-        await service.loadLanguages(LanguagesEnum.portuguese.code);
+    state.portugueseTranslation = await service.loadLanguages(LanguagesEnum.portuguese.code);
 
-    state.englishTranslation =
-        await service.loadLanguages(LanguagesEnum.english.code);
+    state.englishTranslation = await service.loadLanguages(LanguagesEnum.english.code);
 
-    state.russianTranslation =
-        await service.loadLanguages(LanguagesEnum.russian.code);
+    state.russianTranslation = await service.loadLanguages(LanguagesEnum.russian.code);
 
-    state.stratagemsNamesInSpanish =
-        await service.loadStratagemsNameByLanguage(LanguagesEnum.spanish);
+    state.stratagemsNamesInSpanish = await service.loadStratagemsNameByLanguage(LanguagesEnum.spanish);
 
-    state.stratagemsNamesInEnglish =
-        await service.loadStratagemsNameByLanguage(LanguagesEnum.english);
+    state.stratagemsNamesInEnglish = await service.loadStratagemsNameByLanguage(LanguagesEnum.english);
 
-    state.stratagemsNamesInPortuguese =
-        await service.loadStratagemsNameByLanguage(LanguagesEnum.portuguese);
+    state.stratagemsNamesInPortuguese = await service.loadStratagemsNameByLanguage(LanguagesEnum.portuguese);
 
-    state.stratagemsNamesInRussian =
-        await service.loadStratagemsNameByLanguage(LanguagesEnum.russian);
+    state.stratagemsNamesInRussian = await service.loadStratagemsNameByLanguage(LanguagesEnum.russian);
   }
 
   get translationTextOf {
@@ -77,7 +69,7 @@ class TranslationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getCurrentLanguage(BuildContext context) async {
+  Future getCurrentLanguage() async {
     await SharedPreferences.getInstance().then(
       (prefs) {
         String? value = prefs.getString("language");
@@ -85,8 +77,7 @@ class TranslationProvider extends ChangeNotifier {
         if (value != null) {
           final String languageCode = jsonDecode(value);
 
-          final LanguagesEnum defaultLanguageSelected =
-              LanguagesEnumExtension.languageEnumFromCode(languageCode);
+          final LanguagesEnum defaultLanguageSelected = LanguagesEnumExtension.languageEnumFromCode(languageCode);
 
           setCurrentLanguage(defaultLanguageSelected);
         } else {

@@ -9,13 +9,12 @@ class TestAppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TranslationProvider translationProvider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider translationProvider = Provider.of<TranslationProvider>(context);
 
     return CustomButton(
       color: CustomButtonColors.yellow,
       text: translationProvider.translationTextOf["test_app_button"],
-      height: 40,
+      height: 50,
       fontSize: 14,
     );
   }

@@ -9,18 +9,14 @@ class ConnectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ConnectButtonProvider provider =
-        Provider.of<ConnectButtonProvider>(context);
+    final ConnectButtonProvider provider = Provider.of<ConnectButtonProvider>(context);
 
-    final TranslationProvider translationProvider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider translationProvider = Provider.of<TranslationProvider>(context);
 
     return CustomButton(
-      color: provider.isFormValid
-          ? CustomButtonColors.yellow
-          : CustomButtonColors.gray,
+      color: provider.isFormValid ? CustomButtonColors.yellow : CustomButtonColors.gray,
       text: translationProvider.translationTextOf["connect_button"],
-      height: 40,
+      height: 50,
     );
   }
 }

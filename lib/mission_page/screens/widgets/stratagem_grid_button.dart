@@ -83,10 +83,10 @@ class _StratagemGridButtonState extends State<StratagemGridButton> {
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
           color: isPressed
-              ? Colors.blue.withOpacity(0.5)
-              : Colors.blue[800]!.withOpacity(0.4),
+              ? Colors.blue.withValues(alpha: 0.5)
+              : Colors.blue[800]!.withValues(alpha: 0.4),
           border: Border.all(
-            color: isPressed ? Colors.blue[400]! : Colors.blue.withOpacity(0.7),
+            color: isPressed ? Colors.blue[400]! : Colors.blue.withValues(alpha: 0.7),
             width: 2,
           ),
           borderRadius: const BorderRadius.all(Radius.circular(2)),

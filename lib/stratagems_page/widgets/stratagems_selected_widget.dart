@@ -46,7 +46,7 @@ class _StratagemIcon extends StatelessWidget {
       child: Container(
         width: 100,
         height: 100,
-        color: Colors.black.withOpacity(0.7),
+        color: Colors.black.withValues(alpha: 0.7),
         child: Image.asset(stratagem.icon),
       ),
     );

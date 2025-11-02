@@ -14,8 +14,7 @@ class CustomForm extends StatelessWidget {
     final formKeyPort = GlobalKey<FormState>();
 
     final HomeProvider provider = Provider.of<HomeProvider>(context);
-    final TranslationProvider translationProvider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider translationProvider = Provider.of<TranslationProvider>(context);
 
     return Column(
       children: [
@@ -24,17 +23,14 @@ class CustomForm extends StatelessWidget {
               ? translationProvider.translationTextOf["ip_address"]
               : provider.state.ipAddrress,
           formKey: formKeyIp,
-          onChangedHandle: (String value) =>
-              provider.setIPAddress(value, context),
+          onChangedHandle: (String value) => provider.setIPAddress(value),
         ),
         const SizedBox(height: 6),
         CustomInputField(
-          hintText: provider.state.port.isEmpty
-              ? translationProvider.translationTextOf["port"]
-              : provider.state.port,
+          hintText: provider.state.port.isEmpty ? translationProvider.translationTextOf["port"] : provider.state.port,
           textInputType: TextInputType.number,
           formKey: formKeyPort,
-          onChangedHandle: (String value) => provider.setPort(value, context),
+          onChangedHandle: (String value) => provider.setPort(value),
         ),
         if (provider.state.isLoading) _buildLoadingWidget(context),
         if (!provider.state.isLoading) const SizedBox(height: 9),

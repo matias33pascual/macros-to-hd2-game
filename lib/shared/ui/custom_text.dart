@@ -33,10 +33,10 @@ class CustomText extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: textAlign,
             style: TextStyle(
-              fontFamily: fontFamily ?? "Roboto",
-              fontSize: size + 0.2,
-              color: Colors.black,
-            ),
+                fontFamily: fontFamily ?? "Roboto",
+                fontSize: size + 0.2,
+                color: Colors.black,
+                overflow: TextOverflow.ellipsis),
           ),
         Text(
           text,
@@ -44,10 +44,7 @@ class CustomText extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           textAlign: textAlign,
           style: TextStyle(
-            fontFamily: fontFamily ?? "Roboto",
-            fontSize: size,
-            color: textColor,
-          ),
+              fontFamily: fontFamily ?? "Roboto", fontSize: size, color: textColor, overflow: TextOverflow.ellipsis),
         ),
       ],
     );

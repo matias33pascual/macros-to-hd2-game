@@ -25,7 +25,7 @@ class MissionPage extends StatelessWidget {
       child: Scaffold(
         appBar: CustomAppBar(
           title: translationProvider.translationTextOf["mission"].toUpperCase(),
-          color: Colors.blue[900]!.withOpacity(0.2),
+          color: Colors.blue[900]!.withValues(alpha: 0.2),
           actionButton:
               stratagemsProvider.state.stratagemsSelectedForMission.length > 2
                   ? _buildActionButton(provider)
@@ -48,7 +48,7 @@ class MissionPage extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      color: Colors.black.withOpacity(0.4),
+      color: Colors.black.withValues(alpha: 0.4),
     );
   }
 
@@ -78,7 +78,7 @@ class MissionPage extends StatelessWidget {
         ),
         child: Image.asset(
           provider.getIconPath(),
-          color: Colors.indigo[700]!.withOpacity(0.4),
+          color: Colors.indigo[700]!.withValues(alpha: 0.4),
           colorBlendMode: BlendMode.color,
         ),
       ),

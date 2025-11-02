@@ -25,7 +25,7 @@ class ConnectionService {
       listen: false,
     );
 
-    homeProvider.setIsLoading(true, context);
+    homeProvider.setIsLoading(true);
     homeProvider.setMessageError(false);
 
     try {
@@ -48,7 +48,7 @@ class ConnectionService {
 
               await homeProvider
                   .saveConnectionDataToLocalStorage(ip, port)
-                  .then((_) => homeProvider.setIsLoading(false, context));
+                  .then((_) => homeProvider.setIsLoading(false));
 
               if (kDebugMode) {
                 print("Conexion establecida en $ip:$port");
@@ -63,7 +63,7 @@ class ConnectionService {
               print("Error en ConnectionService.connectToServer: $error");
             }
 
-            homeProvider.setIsLoading(false, context);
+            homeProvider.setIsLoading(false);
 
             disconnect();
           },
@@ -72,7 +72,7 @@ class ConnectionService {
               _connectionCompleter!.complete(false);
             }
 
-            homeProvider.setIsLoading(false, context);
+            homeProvider.setIsLoading(false);
 
             disconnect();
           },
@@ -85,7 +85,7 @@ class ConnectionService {
               "Se intento conectar al servidor pero la conexion ya habia sido realizada.");
         }
 
-        homeProvider.setIsLoading(false, context);
+        homeProvider.setIsLoading(false);
 
         return Future.value(true);
       }
@@ -96,7 +96,7 @@ class ConnectionService {
 
       channel = null;
 
-      homeProvider.setIsLoading(false, context);
+      homeProvider.setIsLoading(false);
 
       return Future.value(false);
     }

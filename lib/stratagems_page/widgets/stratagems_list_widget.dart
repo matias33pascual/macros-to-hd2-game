@@ -31,12 +31,12 @@ class StratagemsListWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 2),
             decoration: BoxDecoration(
               color: provider.isSelected(listToShow[index])
-                  ? Colors.green.withOpacity(0.6)
+                  ? Colors.green.withValues(alpha: 0.6)
                   : const Color.fromARGB(137, 81, 95, 122),
               border: Border.all(
                 color: provider.isSelected(listToShow[index])
                     ? Colors.green
-                    : Colors.white.withOpacity(0.2),
+                    : Colors.white.withValues(alpha: 0.2),
                 width: 2,
               ),
             ),

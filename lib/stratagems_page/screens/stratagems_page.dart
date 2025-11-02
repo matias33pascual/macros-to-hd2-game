@@ -18,13 +18,12 @@ class StratagemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TranslationProvider provider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider provider = Provider.of<TranslationProvider>(context);
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
         ConnectionService.instance.disconnect();
-        return true;
       },
       child: SafeArea(
         child: Scaffold(
@@ -53,8 +52,7 @@ class StratagemsPage extends StatelessWidget {
       listen: false,
     );
 
-    final TranslationProvider translationProvider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider translationProvider = Provider.of<TranslationProvider>(context);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -74,7 +72,7 @@ class StratagemsPage extends StatelessWidget {
                     flex: 4,
                     fit: FlexFit.tight,
                     child: Container(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: 0.6),
                       child: const StratagemsListWidget(),
                     ),
                   ),
@@ -82,8 +80,7 @@ class StratagemsPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: CustomText(
-                      text: translationProvider
-                          .translationTextOf["selected_for_mission"],
+                      text: translationProvider.translationTextOf["selected_for_mission"],
                       size: 16,
                     ),
                   ),
@@ -99,9 +96,7 @@ class StratagemsPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 24),
                     child: GestureDetector(
                       onTap: () {
-                        final StratagemsProvider provider =
-                            Provider.of<StratagemsProvider>(context,
-                                listen: false);
+                        final StratagemsProvider provider = Provider.of<StratagemsProvider>(context, listen: false);
                         provider.state.stratagemsSelectedForMission;
 
                         final message = {
@@ -111,8 +106,7 @@ class StratagemsPage extends StatelessWidget {
 
                         final jsonMessage = jsonEncode(message);
 
-                        ConnectionService.instance
-                            .sendMessage(message: jsonMessage);
+                        ConnectionService.instance.sendMessage(message: jsonMessage);
 
                         Navigator.of(context).pushNamed(
                           MissionPage.routeName,
@@ -120,8 +114,7 @@ class StratagemsPage extends StatelessWidget {
                       },
                       child: CustomButton(
                         color: CustomButtonColors.yellow,
-                        text: translationProvider
-                            .translationTextOf["start_button"],
+                        text: translationProvider.translationTextOf["start_button"],
                         height: 40,
                       ),
                     ),
@@ -133,8 +126,7 @@ class StratagemsPage extends StatelessWidget {
                 children: [
                   _buildBackground(context),
                   LinearProgressIndicator(
-                    color:
-                        const Color.fromARGB(255, 148, 0, 57).withOpacity(0.4),
+                    color: const Color.fromARGB(255, 148, 0, 57).withValues(alpha: 0.4),
                     backgroundColor: AppTheme.colors.darkRed,
                   ),
                 ],
@@ -161,7 +153,7 @@ class StratagemsPage extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      color: Colors.black.withOpacity(0.1),
+      color: Colors.black.withValues(alpha: 0.1),
     );
   }
 

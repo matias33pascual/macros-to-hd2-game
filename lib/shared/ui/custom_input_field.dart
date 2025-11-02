@@ -55,7 +55,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             ? Border(
                 left: BorderSide(
                 width: 3,
-                color: Colors.amber.withOpacity(0.8),
+                color: Colors.amber.withValues(alpha: 0.8),
               ))
             : null,
       ),
@@ -73,7 +73,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
               ? textStyles.hintTextSelected
               : textStyles.hintTextNotSelected,
           filled: true,
-          fillColor: _hasFocus ? Colors.amber.withOpacity(0.4) : Colors.black54,
+          fillColor: _hasFocus ? Colors.amber.withValues(alpha: 0.4) : Colors.black54,
           border: InputBorder.none,
         ),
       ),

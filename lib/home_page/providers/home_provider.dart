@@ -3,34 +3,31 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:macros_to_helldivers/home_page/providers/connect_button_provider.dart';
 import 'package:macros_to_helldivers/home_page/states/home_state.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeProvider extends ChangeNotifier {
   HomeState state = HomeState.instance;
 
-  void setIsLoading(bool value, BuildContext context) {
-    state.isLoading = value;
+  final ConnectButtonProvider connectButtonProvider;
 
-    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
+  HomeProvider({required this.connectButtonProvider});
+
+  void setIsLoading(bool value) {
+    state.isLoading = value;
 
     connectButtonProvider.notifyListeners();
 
     notifyListeners();
   }
 
-  void setIPAddress(String value, BuildContext context) {
+  void setIPAddress(String value) {
     state.ipAddrress = value;
-
-    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
 
     connectButtonProvider.notifyListeners();
   }
 
-  void setPort(String value, BuildContext context) {
+  void setPort(String value) {
     state.port = value;
-
-    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
 
     connectButtonProvider.notifyListeners();
   }
@@ -50,8 +47,6 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> loadDataFromLocalStorate(BuildContext context) async {
-    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
-
     await SharedPreferences.getInstance().then(
       (prefs) {
         String? value = prefs.getString("connection-data");
