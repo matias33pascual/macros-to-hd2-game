@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:macros_to_helldivers/home_page/providers/exports_providers.dart';
@@ -25,10 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    final HomeProvider homeProvider = Provider.of<HomeProvider>(
-      context,
-      listen: false,
-    );
+    final HomeProvider homeProvider = Provider.of<HomeProvider>(context, listen: false);
 
     homeProvider.loadDataFromLocalStorate(context);
 
@@ -50,14 +45,133 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            _buildBackground(context),
-            _buildMacroTitle(),
-            _buildForm(context),
-          ],
+        resizeToAvoidBottomInset: true,
+        body: OrientationBuilder(
+          builder: (context, orientation) => orientation == Orientation.portrait
+              ? Container(
+                  color: Colors.white.withValues(alpha: 0.1),
+                  height: MediaQuery.of(context).size.height,
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 10, left: 2, right: 2),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      spacing: 10,
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _buildMacroTitle(),
+                        Stack(
+                          children: [
+                            const Image(
+                              image: AssetImage("assets/images/home_background.webp"),
+                              fit: BoxFit.cover,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildConnectForm(context),
+                                  const SizedBox(height: 50),
+                                  _buildButtons(context),
+                                  const SizedBox(height: 60),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        onTap: () => {
+                                          launchUrl(
+                                            Uri.https('github.com', 'matias33pascual'),
+                                            mode: LaunchMode.externalApplication,
+                                          )
+                                        },
+                                        child: const Text(
+                                          "By Matias Pascual",
+                                          style: TextStyle(
+                                            color: Colors.blue,
+                                            decoration: TextDecoration.underline,
+                                            fontSize: 18,
+                                            decorationColor: Colors.blue,
+                                            decorationStyle: TextDecorationStyle.solid,
+                                            decorationThickness: 2,
+                                          ),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/home_background.webp"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [_buildMacroTitle(), const SizedBox(height: 30), _buildButtons(context)],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.grey.withValues(alpha: 0.2),
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [_buildConnectForm(context)],
+                              ),
+                              const SizedBox(height: 30),
+                              InkWell(
+                                onTap: () => {
+                                  launchUrl(
+                                    Uri.https('github.com', 'matias33pascual'),
+                                    mode: LaunchMode.externalApplication,
+                                  )
+                                },
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "By Matias Pascual",
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 18,
+                                        decorationColor: Colors.blue,
+                                        decorationStyle: TextDecorationStyle.solid,
+                                        decorationThickness: 2,
+                                      ),
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
         ),
       ),
     );
@@ -82,8 +196,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             CustomText(
                 maxLines: 20, size: 14, textAlign: TextAlign.center, text: provider.translationTextOf["error_message"]),
-            SizedBox(height: 8),
-            CustomText(
+            const SizedBox(height: 8),
+            const CustomText(
                 maxLines: 20,
                 size: 14,
                 textAlign: TextAlign.center,
@@ -106,8 +220,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildMacroTitle() {
+    final Orientation orientation = MediaQuery.of(context).orientation;
+
     return Padding(
-      padding: const EdgeInsets.only(top: 50),
+      padding: EdgeInsets.only(top: orientation == Orientation.portrait ? 50 : 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -135,168 +251,133 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Image _buildBackground(BuildContext context) {
-    return Image.asset(
-      "assets/images/home_background.webp",
-      height: MediaQuery.of(context).size.height,
-      fit: BoxFit.cover,
-    );
-  }
+  Column _buildButtons(BuildContext context) {
+    TranslationProvider translationProvider = Provider.of<TranslationProvider>(context, listen: false);
 
-  _buildForm(BuildContext context) {
-    final translationProvider = Provider.of<TranslationProvider>(context);
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0, left: 2, right: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              _buildPanel(),
-              _buildContent(context),
-              Padding(
-                padding: const EdgeInsets.only(top: 250, left: 16, right: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          GestureDetector(
-                            onTap: () => _showLanguageBottomSheet(context),
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
-                                  BorderSide(width: 2, color: Colors.grey),
-                                ),
-                                color: Colors.grey.withValues(alpha: 0.5),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 40,
-                                    child: translationProvider.flagIcon,
-                                  ),
-                                  SizedBox(width: 8),
-                                  CustomText(
-                                    text: translationProvider.translationTextOf["language"],
-                                    size: 16,
-                                    textColor: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          GestureDetector(
-                            onTap: _openUserManualURL,
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
-                                  BorderSide(width: 2, color: Colors.orange[500]!),
-                                ),
-                                color: Colors.orange[300]!.withValues(alpha: 0.5),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(2),
-                                    width: 40,
-                                    child: Image.asset("assets/images/manual.webp"),
-                                  ),
-                                  SizedBox(width: 8),
-                                  CustomText(
-                                    text: translationProvider.translationTextOf["how_to"],
-                                    size: 16,
-                                    textColor: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          GestureDetector(
-                            onTap: _openVideoURL,
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
-                                  BorderSide(width: 2, color: Colors.red[300]!),
-                                ),
-                                color: Colors.red[500]!.withValues(alpha: 0.5),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(2),
-                                    width: 40,
-                                    child: Image.asset("assets/images/youtube.webp"),
-                                  ),
-                                  SizedBox(width: 8),
-                                  CustomText(
-                                    text: translationProvider.translationTextOf["video_tutorial"],
-                                    size: 16,
-                                    textColor: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          GestureDetector(
-                            onTap: _openDownloadURL,
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 4),
-                              decoration: BoxDecoration(
-                                border: Border.fromBorderSide(
-                                  BorderSide(width: 2, color: Colors.blue[200]!),
-                                ),
-                                color: Colors.blue[300]!.withValues(alpha: 0.7),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(2),
-                                    width: 40,
-                                    child: Image.asset("assets/images/github_b.webp"),
-                                  ),
-                                  SizedBox(width: 6),
-                                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                                    CustomText(
-                                      text: translationProvider.translationTextOf["download_pc"],
-                                      size: 14,
-                                      textColor: Colors.white,
-                                    ),
-                                    SizedBox(width: 8),
-                                    CustomText(
-                                      text: "v1.2.0",
-                                      size: 12,
-                                    )
-                                  ])
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+    return Column(
+      spacing: 12,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+          onTap: () => _showLanguageBottomSheet(context),
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              border: const Border.fromBorderSide(
+                BorderSide(width: 2, color: Colors.grey),
+              ),
+              color: Colors.grey.withValues(alpha: 0.5),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 40,
+                  child: translationProvider.flagIcon,
                 ),
-              )
-            ],
+                const SizedBox(width: 8),
+                CustomText(
+                  text: translationProvider.translationTextOf["language"],
+                  size: 16,
+                  textColor: Colors.white,
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+        GestureDetector(
+          onTap: _openUserManualURL,
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              border: Border.fromBorderSide(
+                BorderSide(width: 2, color: Colors.orange[500]!),
+              ),
+              color: Colors.orange[300]!.withValues(alpha: 0.5),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(2),
+                  width: 40,
+                  child: Image.asset("assets/images/manual.webp"),
+                ),
+                const SizedBox(width: 8),
+                CustomText(
+                  text: translationProvider.translationTextOf["how_to"],
+                  size: 16,
+                  textColor: Colors.white,
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: _openVideoURL,
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              border: Border.fromBorderSide(
+                BorderSide(width: 2, color: Colors.red[300]!),
+              ),
+              color: Colors.red[500]!.withValues(alpha: 0.5),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(2),
+                  width: 40,
+                  child: Image.asset("assets/images/youtube.webp"),
+                ),
+                const SizedBox(width: 8),
+                CustomText(
+                  text: translationProvider.translationTextOf["video_tutorial"],
+                  size: 16,
+                  textColor: Colors.white,
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: _openDownloadURL,
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            decoration: BoxDecoration(
+              border: Border.fromBorderSide(
+                BorderSide(width: 2, color: Colors.blue[200]!),
+              ),
+              color: Colors.blue[300]!.withValues(alpha: 0.7),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(2),
+                  width: 40,
+                  child: Image.asset("assets/images/github_b.webp"),
+                ),
+                const SizedBox(width: 6),
+                Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  CustomText(
+                    text: translationProvider.translationTextOf["download_pc"],
+                    size: 14,
+                    textColor: Colors.white,
+                  ),
+                  const SizedBox(width: 8),
+                  const CustomText(
+                    text: "v1.2.0",
+                    size: 12,
+                  )
+                ])
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -308,10 +389,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey[900]!.withValues(alpha: 0.8),
         shape: RoundedRectangleBorder(
             side: BorderSide(width: 1, color: Colors.grey[600]!),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(8))),
         builder: (context) => ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
               children: [
                 GestureDetector(
                   onTap: () {
@@ -324,8 +405,8 @@ class _HomePageState extends State<HomePage> {
                         width: 40,
                         child: Image.asset("assets/images/flag-argentina.webp"),
                       ),
-                      SizedBox(width: 8),
-                      CustomText(
+                      const SizedBox(width: 8),
+                      const CustomText(
                         text: "ESPAÑOL",
                         size: 16,
                         textColor: Colors.white,
@@ -344,8 +425,8 @@ class _HomePageState extends State<HomePage> {
                         width: 40,
                         child: Image.asset("assets/images/flag-brasil.webp"),
                       ),
-                      SizedBox(width: 8),
-                      CustomText(
+                      const SizedBox(width: 8),
+                      const CustomText(
                         text: "PORTUGUESE",
                         size: 16,
                         textColor: Colors.white,
@@ -364,8 +445,8 @@ class _HomePageState extends State<HomePage> {
                         width: 40,
                         child: Image.asset("assets/images/flag-usa.webp"),
                       ),
-                      SizedBox(width: 8),
-                      CustomText(
+                      const SizedBox(width: 8),
+                      const CustomText(
                         text: "ENGLISH",
                         size: 16,
                         textColor: Colors.white,
@@ -384,8 +465,8 @@ class _HomePageState extends State<HomePage> {
                         width: 40,
                         child: Image.asset("assets/images/flag-rusia.webp"),
                       ),
-                      SizedBox(width: 8),
-                      CustomText(
+                      const SizedBox(width: 8),
+                      const CustomText(
                         text: "РУССКИЙ",
                         size: 16,
                         textColor: Colors.white,
@@ -441,16 +522,16 @@ class _HomePageState extends State<HomePage> {
     launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
-  _buildContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+  _buildConnectForm(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        spacing: 16,
         children: [
           _buildPanelTitle(),
-          Container(
-            margin: const EdgeInsets.only(top: 12),
-            child: const CustomForm(),
-          ),
+          const CustomForm(),
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Row(
@@ -496,7 +577,8 @@ class _HomePageState extends State<HomePage> {
                   child: const ConnectButton(),
                 ),
                 GestureDetector(
-                    onTap: () => Navigator.of(context).pushNamed(StratagemsPage.routeName), child: TestAppButton()),
+                    onTap: () => Navigator.of(context).pushNamed(StratagemsPage.routeName),
+                    child: const TestAppButton()),
               ],
             ),
           )
@@ -505,57 +587,28 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container _buildPanelTitle() {
+  _buildPanelTitle() {
     final TranslationProvider provider = Provider.of<TranslationProvider>(context);
 
-    return Container(
-      padding: const EdgeInsets.only(bottom: 4),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.amber[500]!.withValues(alpha: 0.6),
-            width: 2,
-          ),
+    return Column(
+      children: [
+        CustomText(
+          text: provider.translationTextOf["input_hint"],
+          size: 16,
+          maxLines: 2,
+          textColor: Colors.white,
+          strokeColor: Colors.black.withValues(alpha: 0.7),
+          textAlign: TextAlign.center,
         ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(child: Container()),
-            ],
-          ),
-          CustomText(
-            text: provider.translationTextOf["input_hint"],
-            size: 16,
-            maxLines: 2,
-            textColor: Colors.white,
-            strokeColor: Colors.black.withValues(alpha: 0.7),
-            textAlign: TextAlign.center,
-          ),
-          CustomText(
-            text: "MACROS TO HD2 Game PC",
-            size: 16,
-            maxLines: 2,
-            textColor: Colors.amber,
-            strokeColor: Colors.black.withValues(alpha: 0.7),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildPanel() {
-    return Container(
-      height: 240,
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.7),
-        border: Border.all(
-          color: Colors.amber[500]!.withValues(alpha: 0.6),
-          width: 2,
+        CustomText(
+          text: "MACROS TO HD2 Game PC",
+          size: 16,
+          maxLines: 2,
+          textColor: Colors.amber,
+          strokeColor: Colors.black.withValues(alpha: 0.7),
+          textAlign: TextAlign.center,
         ),
-      ),
+      ],
     );
   }
 }

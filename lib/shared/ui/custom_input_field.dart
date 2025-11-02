@@ -69,9 +69,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
         maxLines: 1,
         decoration: InputDecoration(
           hintText: widget.hintText,
-          hintStyle: _hasFocus
-              ? textStyles.hintTextSelected
-              : textStyles.hintTextNotSelected,
+          hintStyle: _hasFocus ? textStyles.hintTextSelected : textStyles.hintTextNotSelected,
           filled: true,
           fillColor: _hasFocus ? Colors.amber.withValues(alpha: 0.4) : Colors.black54,
           border: InputBorder.none,
