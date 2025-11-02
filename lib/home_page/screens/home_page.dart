@@ -31,18 +31,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  Widget build(BuildContext context) {
     final HomeProvider provider = Provider.of<HomeProvider>(context);
 
     if (provider.state.error) {
-      showMyDialog(context);
-      provider.state.error = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showMyDialog(context);
+        provider.state.error = false;
+      });
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:macros_to_helldivers/home_page/providers/exports_providers.dart';
@@ -81,14 +82,23 @@ class ConnectionService {
         return _connectionCompleter!.future;
       } else {
         if (kDebugMode) {
-          print(
-              "Se intento conectar al servidor pero la conexion ya habia sido realizada.");
+          print("Se intento conectar al servidor pero la conexion ya habia sido realizada.");
         }
 
         homeProvider.setIsLoading(false);
 
         return Future.value(true);
       }
+    } on SocketException catch (_) {
+      if (kDebugMode) {
+        print("Error en ConnectionService.connectToServer: SocketException");
+      }
+
+      channel = null;
+
+      homeProvider.setIsLoading(false);
+
+      return Future.value(false);
     } catch (error) {
       if (kDebugMode) {
         print("Error en ConnectionService.connectToServer: $error");
