@@ -1,6 +1,5 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:macros_to_helldivers/home_page/providers/exports_providers.dart';
 import 'package:macros_to_helldivers/home_page/screens/home_page.dart';
 import 'package:macros_to_helldivers/mission_page/providers/mission_provider.dart';
@@ -10,13 +9,13 @@ import 'package:macros_to_helldivers/splash_page/splash_page.dart';
 import 'package:macros_to_helldivers/stratagems_page/providers/exports_providers.dart';
 import 'package:macros_to_helldivers/stratagems_page/screens/stratagems_page.dart';
 import 'package:provider/provider.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 const useDevMode = false;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Wakelock.enable();
+  await WakelockPlus.enable();
 
   runApp(
     MultiProvider(
@@ -45,8 +44,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
     return MaterialApp(
       routes: {
         HomePage.routeName: (context) => const HomePage(),

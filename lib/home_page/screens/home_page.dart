@@ -67,8 +67,7 @@ class _HomePageState extends State<HomePage> {
     await Future.delayed(Duration.zero);
 
     if (mounted) {
-      final TranslationProvider provider =
-          Provider.of<TranslationProvider>(context, listen: false);
+      final TranslationProvider provider = Provider.of<TranslationProvider>(context, listen: false);
 
       showDialog(
         context: context,
@@ -76,13 +75,9 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.black,
           insetPadding: const EdgeInsets.all(24),
           contentPadding: const EdgeInsets.all(24),
-          shape: const RoundedRectangleBorder(
-              side: BorderSide(color: Colors.amber, width: 1)),
+          shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.amber, width: 1)),
           title: CustomText(
-              maxLines: 10,
-              size: 16,
-              textAlign: TextAlign.center,
-              text: provider.translationTextOf["error_title"]),
+              maxLines: 10, size: 16, textAlign: TextAlign.center, text: provider.translationTextOf["error_title"]),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -107,9 +102,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pop();
               },
               child: CustomButton(
-                  color: CustomButtonColors.yellow,
-                  text: provider.translationTextOf["close_button"],
-                  height: 40),
+                  color: CustomButtonColors.yellow, text: provider.translationTextOf["close_button"], height: 40),
             ),
           ],
         ),
@@ -196,8 +189,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   SizedBox(width: 8),
                                   CustomText(
-                                    text: translationProvider
-                                        .translationTextOf["language"],
+                                    text: translationProvider.translationTextOf["language"],
                                     size: 16,
                                     textColor: Colors.white,
                                   ),
@@ -213,8 +205,7 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(horizontal: 8),
                               decoration: BoxDecoration(
                                 border: Border.fromBorderSide(
-                                  BorderSide(
-                                      width: 2, color: Colors.orange[500]!),
+                                  BorderSide(width: 2, color: Colors.orange[500]!),
                                 ),
                                 color: Colors.orange[300]!.withOpacity(0.5),
                               ),
@@ -223,13 +214,11 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     padding: EdgeInsets.all(2),
                                     width: 40,
-                                    child: Image.asset(
-                                        "assets/images/manual.webp"),
+                                    child: Image.asset("assets/images/manual.webp"),
                                   ),
                                   SizedBox(width: 8),
                                   CustomText(
-                                    text: translationProvider
-                                        .translationTextOf["how_to"],
+                                    text: translationProvider.translationTextOf["how_to"],
                                     size: 16,
                                     textColor: Colors.white,
                                   ),
@@ -254,13 +243,11 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     padding: EdgeInsets.all(2),
                                     width: 40,
-                                    child: Image.asset(
-                                        "assets/images/youtube.webp"),
+                                    child: Image.asset("assets/images/youtube.webp"),
                                   ),
                                   SizedBox(width: 8),
                                   CustomText(
-                                    text: translationProvider
-                                        .translationTextOf["video_tutorial"],
+                                    text: translationProvider.translationTextOf["video_tutorial"],
                                     size: 16,
                                     textColor: Colors.white,
                                   ),
@@ -276,8 +263,7 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
                                 border: Border.fromBorderSide(
-                                  BorderSide(
-                                      width: 2, color: Colors.blue[200]!),
+                                  BorderSide(width: 2, color: Colors.blue[200]!),
                                 ),
                                 color: Colors.blue[300]!.withOpacity(0.7),
                               ),
@@ -287,74 +273,21 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     padding: EdgeInsets.all(2),
                                     width: 40,
-                                    child: Image.asset(
-                                        "assets/images/github_b.webp"),
+                                    child: Image.asset("assets/images/github_b.webp"),
                                   ),
                                   SizedBox(width: 6),
-                                  Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        CustomText(
-                                          text: translationProvider
-                                              .translationTextOf["download_pc"],
-                                          size: 16,
-                                          textColor: Colors.white,
-                                        ),
-                                        SizedBox(width: 8),
-                                        CustomText(
-                                          text: "v1.2.0",
-                                          size: 12,
-                                        )
-                                      ])
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          GestureDetector(
-                            onTap: _openByMeCoffeURL,
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(0),
-                                border: Border.fromBorderSide(
-                                  BorderSide(
-                                      width: 1,
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                ),
-                                color: Color.fromARGB(255, 0, 0, 0)
-                                    .withOpacity(0.8),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(2),
-                                    width: 40,
-                                    child: Text(
-                                      '☕',
-                                      style: TextStyle(fontSize: 32),
+                                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                                    CustomText(
+                                      text: translationProvider.translationTextOf["download_pc"],
+                                      size: 16,
+                                      textColor: Colors.white,
                                     ),
-                                  ),
-                                  SizedBox(width: 6),
-                                  Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        CustomText(
-                                          text: translationProvider
-                                              .translationTextOf["support"],
-                                          size: 14,
-                                          textColor: Colors.white,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ])
+                                    SizedBox(width: 8),
+                                    CustomText(
+                                      text: "v1.2.0",
+                                      size: 12,
+                                    )
+                                  ])
                                 ],
                               ),
                             ),
@@ -373,8 +306,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showLanguageBottomSheet(BuildContext context) {
-    final TranslationProvider provider =
-        Provider.of<TranslationProvider>(context, listen: false);
+    final TranslationProvider provider = Provider.of<TranslationProvider>(context, listen: false);
 
     showModalBottomSheet(
         context: context,
@@ -470,45 +402,8 @@ class _HomePageState extends State<HomePage> {
             ));
   }
 
-  void _openByMeCoffeURL() {
-    final TranslationProvider provider =
-        Provider.of<TranslationProvider>(context, listen: false);
-
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text(provider.translationTextOf["support_thanks"]),
-          backgroundColor: Colors.black,
-          titleTextStyle: const TextStyle(color: Colors.amber),
-          contentTextStyle: const TextStyle(color: Colors.white, fontSize: 16),
-          shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.amber, width: 1)),
-          insetPadding: const EdgeInsets.all(24),
-          contentPadding: const EdgeInsets.all(24),
-          content: Text(provider.translationTextOf["support_content"]),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: Text(provider.translationTextOf["support_cancel"]),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext);
-                final url = Uri.https('buymeacoffee.com', 'matias33pascual');
-                launchUrl(url, mode: LaunchMode.externalApplication);
-              },
-              child: Text(provider.translationTextOf["support_continue"]),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _openDownloadURL() {
-    final url = Uri.https(
-        'github.com', 'matias33pascual/macros-to-helldivers-pc/releases');
+    final url = Uri.https('github.com', 'matias33pascual/macros-to-helldivers-pc/releases');
 
     launchUrl(url, mode: LaunchMode.externalApplication);
   }
@@ -516,8 +411,7 @@ class _HomePageState extends State<HomePage> {
   void _openUserManualURL() {
     String urlUserManual = "";
 
-    final LanguagesEnum currentLanguage =
-        TranslationState.instance.currentLanguage;
+    final LanguagesEnum currentLanguage = TranslationState.instance.currentLanguage;
 
     switch (currentLanguage) {
       case LanguagesEnum.russian:
@@ -569,12 +463,9 @@ class _HomePageState extends State<HomePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    final HomeProvider provider =
-                        Provider.of<HomeProvider>(context, listen: false);
+                    final HomeProvider provider = Provider.of<HomeProvider>(context, listen: false);
 
-                    if (provider.state.port.isEmpty ||
-                        provider.state.ipAddrress.isEmpty ||
-                        provider.state.isLoading) {
+                    if (provider.state.port.isEmpty || provider.state.ipAddrress.isEmpty || provider.state.isLoading) {
                       return;
                     }
 
@@ -588,12 +479,10 @@ class _HomePageState extends State<HomePage> {
                           .then(
                         (value) {
                           if (value) {
-                            Navigator.pushNamed(
-                                context, StratagemsPage.routeName);
+                            Navigator.pushNamed(context, StratagemsPage.routeName);
                           } else {
                             if (kDebugMode) {
-                              print(
-                                  "No se pudo conectar al servidor: ConnectionService return false.");
+                              print("No se pudo conectar al servidor: ConnectionService return false.");
                             }
                             provider.setMessageError(true);
                           }
@@ -611,9 +500,7 @@ class _HomePageState extends State<HomePage> {
                   child: const ConnectButton(),
                 ),
                 GestureDetector(
-                    onTap: () => Navigator.of(context)
-                        .pushNamed(StratagemsPage.routeName),
-                    child: TestAppButton()),
+                    onTap: () => Navigator.of(context).pushNamed(StratagemsPage.routeName), child: TestAppButton()),
               ],
             ),
           )
@@ -623,8 +510,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Container _buildPanelTitle() {
-    final TranslationProvider provider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider provider = Provider.of<TranslationProvider>(context);
 
     return Container(
       padding: const EdgeInsets.only(bottom: 4),
@@ -672,7 +558,6 @@ class _HomePageState extends State<HomePage> {
         border: Border.all(
           color: Colors.amber[500]!.withOpacity(0.6),
           width: 2,
-          strokeAlign: StrokeAlign.inside,
         ),
       ),
     );

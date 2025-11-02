@@ -12,8 +12,7 @@ class HomeProvider extends ChangeNotifier {
   void setIsLoading(bool value, BuildContext context) {
     state.isLoading = value;
 
-    final ConnectButtonProvider connectButtonProvider =
-        Provider.of<ConnectButtonProvider>(context, listen: false);
+    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
 
     connectButtonProvider.notifyListeners();
 
@@ -23,8 +22,7 @@ class HomeProvider extends ChangeNotifier {
   void setIPAddress(String value, BuildContext context) {
     state.ipAddrress = value;
 
-    final ConnectButtonProvider connectButtonProvider =
-        Provider.of<ConnectButtonProvider>(context, listen: false);
+    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
 
     connectButtonProvider.notifyListeners();
   }
@@ -32,8 +30,7 @@ class HomeProvider extends ChangeNotifier {
   void setPort(String value, BuildContext context) {
     state.port = value;
 
-    final ConnectButtonProvider connectButtonProvider =
-        Provider.of<ConnectButtonProvider>(context, listen: false);
+    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
 
     connectButtonProvider.notifyListeners();
   }
@@ -53,6 +50,8 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> loadDataFromLocalStorate(BuildContext context) async {
+    final ConnectButtonProvider connectButtonProvider = Provider.of<ConnectButtonProvider>(context, listen: false);
+
     await SharedPreferences.getInstance().then(
       (prefs) {
         String? value = prefs.getString("connection-data");
@@ -62,9 +61,6 @@ class HomeProvider extends ChangeNotifier {
 
           state.ipAddrress = data["ip"];
           state.port = data["port"];
-
-          final ConnectButtonProvider connectButtonProvider =
-              Provider.of<ConnectButtonProvider>(context, listen: false);
 
           connectButtonProvider.notifyListeners();
 
