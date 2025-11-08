@@ -93,8 +93,9 @@ class StratagemsPage extends StatelessWidget {
                               child: StratagemsSelectedWidget(),
                             ),
                           ),
+                          SizedBox(height: 8),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 24),
+                            padding: const EdgeInsets.only(bottom: 12),
                             child: GestureDetector(
                               onTap: () {
                                 final StratagemsProvider provider =
@@ -152,47 +153,43 @@ class StratagemsPage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 32),
-                                        child: CustomText(
-                                          text: translationProvider.translationTextOf["selected_for_mission"],
-                                          size: 16,
-                                        ),
+                                      CustomText(
+                                        text: translationProvider.translationTextOf["selected_for_mission"],
+                                        size: 16,
                                       ),
                                       Expanded(
                                         child: ConstrainedBox(
-                                          constraints: BoxConstraints(maxWidth: 300),
+                                          constraints: BoxConstraints(maxWidth: 350),
                                           child: StratagemsSelectedWidget(),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 48),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            final StratagemsProvider provider =
-                                                Provider.of<StratagemsProvider>(context, listen: false);
-                                            provider.state.stratagemsSelectedForMission;
+                                      SizedBox(height: 8),
+                                      GestureDetector(
+                                        onTap: () {
+                                          final StratagemsProvider provider =
+                                              Provider.of<StratagemsProvider>(context, listen: false);
+                                          provider.state.stratagemsSelectedForMission;
 
-                                            final message = {
-                                              "type": "prepare-stratagems",
-                                              "value": provider.state.stratagemsSelectedForMission
-                                            };
+                                          final message = {
+                                            "type": "prepare-stratagems",
+                                            "value": provider.state.stratagemsSelectedForMission
+                                          };
 
-                                            final jsonMessage = jsonEncode(message);
+                                          final jsonMessage = jsonEncode(message);
 
-                                            ConnectionService.instance.sendMessage(message: jsonMessage);
+                                          ConnectionService.instance.sendMessage(message: jsonMessage);
 
-                                            Navigator.of(context).pushNamed(
-                                              MissionPage.routeName,
-                                            );
-                                          },
-                                          child: CustomButton(
-                                            color: CustomButtonColors.yellow,
-                                            text: translationProvider.translationTextOf["start_button"],
-                                            height: 40,
-                                          ),
+                                          Navigator.of(context).pushNamed(
+                                            MissionPage.routeName,
+                                          );
+                                        },
+                                        child: CustomButton(
+                                          color: CustomButtonColors.yellow,
+                                          text: translationProvider.translationTextOf["start_button"],
+                                          height: 40,
                                         ),
                                       ),
+                                      SizedBox(height: 4),
                                     ],
                                   ),
                                 ),

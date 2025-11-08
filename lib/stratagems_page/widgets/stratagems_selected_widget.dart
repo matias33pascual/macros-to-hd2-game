@@ -10,14 +10,13 @@ class StratagemsSelectedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final SelectedProvider provider = Provider.of<SelectedProvider>(context);
 
-    final List<_StratagemFrameIcon> list =
-        provider.state.stratagemsSelectedForMission
-            .map((stratagemId) => _StratagemFrameIcon(
-                  stratagemIcon: _StratagemIcon(
-                    stratagemId: stratagemId,
-                  ),
-                ))
-            .toList();
+    final List<_StratagemFrameIcon> list = provider.state.stratagemsSelectedForMission
+        .map((stratagemId) => _StratagemFrameIcon(
+              stratagemIcon: _StratagemIcon(
+                stratagemId: stratagemId,
+              ),
+            ))
+        .toList();
 
     if (list.length < provider.state.maxStratagemSelected) {
       for (var i = list.length; i < provider.state.maxStratagemSelected; i++) {
@@ -25,7 +24,12 @@ class StratagemsSelectedWidget extends StatelessWidget {
       }
     }
 
-    return Wrap(children: list);
+    return GridView.count(
+      crossAxisCount: 5,
+      mainAxisSpacing: 2,
+      crossAxisSpacing: 2,
+      children: list,
+    );
   }
 }
 
@@ -36,8 +40,7 @@ class _StratagemIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StratagemsProvider provider =
-        Provider.of<StratagemsProvider>(context, listen: false);
+    final StratagemsProvider provider = Provider.of<StratagemsProvider>(context, listen: false);
 
     StratagemModel stratagem = provider.getStratagemById(stratagemId);
 
