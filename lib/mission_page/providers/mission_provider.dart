@@ -5,14 +5,16 @@ class MissionProvider extends ChangeNotifier {
   MissionState state = MissionState.instance;
 
   String getIconPath() {
-    final String iconPath =
-        state.useGridLayout ? state.gridIconPath : state.listIconPath;
+    final String iconPath = state.gridIconPath;
 
     return iconPath;
   }
 
   void setNewLayout() {
-    state.useGridLayout = !state.useGridLayout;
+    double nextButtonDistribution = ++state.buttonsForRow % 11;
+    state.buttonsForRow = nextButtonDistribution < 2 ? 2 : nextButtonDistribution;
     notifyListeners();
   }
+
+  updateButtonsDistributionCount() {}
 }

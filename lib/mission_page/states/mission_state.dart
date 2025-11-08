@@ -5,8 +5,10 @@ class MissionState {
 
   static MissionState get instance => _instance;
 
-  bool useGridLayout = true;
+  double buttonsForRow = 4;
 
   final String gridIconPath = "assets/images/grid_icon.webp";
   final String listIconPath = "assets/images/list_icon.webp";
+
+  
 }

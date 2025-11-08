@@ -10,11 +10,9 @@ class MissionStratagems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StratagemsProvider provider =
-        Provider.of<StratagemsProvider>(context, listen: false);
+    final StratagemsProvider provider = Provider.of<StratagemsProvider>(context, listen: false);
 
-    final List<StratagemModel> stratagemsList = provider
-        .state.stratagemsSelectedForMission
+    final List<StratagemModel> stratagemsList = provider.state.stratagemsSelectedForMission
         .map((stratagemId) => provider.getStratagemById(stratagemId))
         .toList();
 
@@ -27,9 +25,15 @@ Widget _buildLayout(List<StratagemModel> stratagemsList, BuildContext context) {
 
   if (stratagemsList.isEmpty) {
     return Container();
-  } else if (stratagemsList.length < 3 || !provider.state.useGridLayout) {
-    return ListLayout(stratagemsList: stratagemsList);
-  } else {
-    return GridLayout(stratagemsList: stratagemsList);
   }
+
+  return GridView.count(
+    crossAxisCount: provider.state.buttonsForRow.toInt(),
+    children: stratagemsList.map((stratagem) => StratagemGridButton(stratagem: stratagem)).toList(),
+  );
+  // else if (stratagemsList.length < 3 || !provider.state.useGridLayout) {
+  //   return ListLayout(stratagemsList: stratagemsList);
+  // } else {
+  //   return GridLayout(stratagemsList: stratagemsList);
+  // }
 }

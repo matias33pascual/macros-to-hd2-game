@@ -11,8 +11,7 @@ class ListLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> stratagemsListWidgets = _buildListLayout(stratagemsList);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return ListView(
       children: stratagemsListWidgets,
     );
   }
@@ -21,9 +20,7 @@ class ListLayout extends StatelessWidget {
     List<Widget> stratagemsListWidgets = [];
 
     stratagemsListWidgets = stratagemsList.map((stratagem) {
-      return Expanded(
-        child: StratagemListButton(stratagem: stratagem),
-      );
+      return StratagemListButton(stratagem: stratagem);
     }).toList();
 
     return stratagemsListWidgets;
