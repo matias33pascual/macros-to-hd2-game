@@ -27,21 +27,20 @@ class StratagemsPage extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.black,
-          appBar: CustomAppBar(
-            title: provider.translationTextOf["stratagems_title"],
-            color: AppTheme.colors.darkRed,
-            onBackButtonPressed: () => ConnectionService.instance.disconnect(),
-          ),
-          body: Stack(
-            children: [
-              _buildBackground(context),
-              _buildPanel(context),
-              _buildContent(context),
-            ],
-          ),
-        ),
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Colors.black,
+            appBar: CustomAppBar(
+              title: provider.translationTextOf["stratagems_title"],
+              color: AppTheme.colors.darkRed,
+              onBackButtonPressed: () => ConnectionService.instance.disconnect(),
+            ),
+            body: Stack(
+              children: [
+                _buildBackground(context),
+                _buildPanel(context),
+                _buildContent(context),
+              ],
+            )),
       ),
     );
   }
@@ -65,61 +64,142 @@ class StratagemsPage extends StatelessWidget {
                 return Container();
               }
 
-              return Column(
-                children: [
-                  const TabMenuWidget(),
-                  Flexible(
-                    flex: 4,
-                    fit: FlexFit.tight,
-                    child: Container(
-                      color: Colors.black.withValues(alpha: 0.6),
-                      child: const StratagemsListWidget(),
-                    ),
-                  ),
-                  _buildHorizontalDivider(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: CustomText(
-                      text: translationProvider.translationTextOf["selected_for_mission"],
-                      size: 16,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    fit: FlexFit.tight,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 300),
-                      child: StratagemsSelectedWidget(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 24),
-                    child: GestureDetector(
-                      onTap: () {
-                        final StratagemsProvider provider = Provider.of<StratagemsProvider>(context, listen: false);
-                        provider.state.stratagemsSelectedForMission;
+              return OrientationBuilder(
+                builder: (context, orientation) => orientation == Orientation.portrait
+                    ? Column(
+                        children: [
+                          const TabMenuWidget(),
+                          Flexible(
+                            flex: 4,
+                            fit: FlexFit.tight,
+                            child: Container(
+                              color: Colors.black.withValues(alpha: 0.6),
+                              child: const StratagemsListWidget(),
+                            ),
+                          ),
+                          _buildHorizontalDivider(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: CustomText(
+                              text: translationProvider.translationTextOf["selected_for_mission"],
+                              size: 16,
+                            ),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            fit: FlexFit.tight,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: 300),
+                              child: StratagemsSelectedWidget(),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 24),
+                            child: GestureDetector(
+                              onTap: () {
+                                final StratagemsProvider provider =
+                                    Provider.of<StratagemsProvider>(context, listen: false);
+                                provider.state.stratagemsSelectedForMission;
 
-                        final message = {
-                          "type": "prepare-stratagems",
-                          "value": provider.state.stratagemsSelectedForMission
-                        };
+                                final message = {
+                                  "type": "prepare-stratagems",
+                                  "value": provider.state.stratagemsSelectedForMission
+                                };
 
-                        final jsonMessage = jsonEncode(message);
+                                final jsonMessage = jsonEncode(message);
 
-                        ConnectionService.instance.sendMessage(message: jsonMessage);
+                                ConnectionService.instance.sendMessage(message: jsonMessage);
 
-                        Navigator.of(context).pushNamed(
-                          MissionPage.routeName,
-                        );
-                      },
-                      child: CustomButton(
-                        color: CustomButtonColors.yellow,
-                        text: translationProvider.translationTextOf["start_button"],
-                        height: 40,
+                                Navigator.of(context).pushNamed(
+                                  MissionPage.routeName,
+                                );
+                              },
+                              child: CustomButton(
+                                color: CustomButtonColors.yellow,
+                                text: translationProvider.translationTextOf["start_button"],
+                                height: 40,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          const TabMenuWidget(),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  flex: 3,
+                                  fit: FlexFit.tight,
+                                  child: Container(
+                                    color: Colors.black.withValues(alpha: 0.6),
+                                    child: const StratagemsListWidget(),
+                                  ),
+                                ),
+                                VerticalDivider(
+                                  color: Colors.green.withValues(alpha: 0.7),
+                                  width: 16,
+                                  thickness: 2,
+                                ),
+                                Flexible(
+                                  flex: 2,
+                                  fit: FlexFit.tight,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 32),
+                                        child: CustomText(
+                                          text: translationProvider.translationTextOf["selected_for_mission"],
+                                          size: 16,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(maxWidth: 300),
+                                          child: StratagemsSelectedWidget(),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 48),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            final StratagemsProvider provider =
+                                                Provider.of<StratagemsProvider>(context, listen: false);
+                                            provider.state.stratagemsSelectedForMission;
+
+                                            final message = {
+                                              "type": "prepare-stratagems",
+                                              "value": provider.state.stratagemsSelectedForMission
+                                            };
+
+                                            final jsonMessage = jsonEncode(message);
+
+                                            ConnectionService.instance.sendMessage(message: jsonMessage);
+
+                                            Navigator.of(context).pushNamed(
+                                              MissionPage.routeName,
+                                            );
+                                          },
+                                          child: CustomButton(
+                                            color: CustomButtonColors.yellow,
+                                            text: translationProvider.translationTextOf["start_button"],
+                                            height: 40,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                ],
               );
             case ConnectionState.waiting:
               return Stack(
@@ -160,8 +240,11 @@ class StratagemsPage extends StatelessWidget {
   _buildBackground(BuildContext context) {
     return Image.asset(
       "assets/images/stratagems_background.webp",
+      width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       fit: BoxFit.cover,
+      color: Colors.indigo[500],
+      colorBlendMode: BlendMode.color,
     );
   }
 }
