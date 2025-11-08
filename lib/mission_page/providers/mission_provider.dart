@@ -9,9 +9,22 @@ class MissionProvider extends ChangeNotifier {
     return iconPath;
   }
 
-  void setNewLayout() {
-    double nextButtonDistribution = ++state.buttonsForRow % 11;
-    state.buttonsForRow = nextButtonDistribution < 2 ? 2 : nextButtonDistribution;
+  void setNewLayout(BuildContext context) {
+    double maxButtons = MediaQuery.of(context).orientation == Orientation.portrait
+        ? state.maxButtonsForRowInPortrait
+        : state.maxButtonsForRowInLandscape;
+
+    double nextButtonDistribution = ++state.buttonsForRow % maxButtons;
+    state.buttonsForRow =
+        nextButtonDistribution < state.minButtonsForRow ? state.minButtonsForRow : nextButtonDistribution;
     notifyListeners();
+  }
+
+  int getButtonsForRow(BuildContext context) {
+    double maxButtons = MediaQuery.of(context).orientation == Orientation.portrait
+        ? state.maxButtonsForRowInPortrait
+        : state.maxButtonsForRowInLandscape;
+
+    return state.buttonsForRow > maxButtons ? maxButtons.toInt() - 1 : state.buttonsForRow.toInt();
   }
 }

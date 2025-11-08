@@ -28,7 +28,7 @@ Widget _buildLayout(List<StratagemModel> stratagemsList, BuildContext context) {
   }
 
   return GridView.count(
-    crossAxisCount: provider.state.buttonsForRow.toInt(),
+    crossAxisCount: provider.getButtonsForRow(context),
     children: stratagemsList.map((stratagem) => StratagemGridButton(stratagem: stratagem)).toList(),
   );
 }

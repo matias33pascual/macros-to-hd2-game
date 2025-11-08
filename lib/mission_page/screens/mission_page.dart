@@ -21,7 +21,7 @@ class MissionPage extends StatelessWidget {
         appBar: CustomAppBar(
             title: translationProvider.translationTextOf["mission"].toUpperCase(),
             color: Colors.blue[900]!.withValues(alpha: 0.2),
-            actionButton: _buildActionButton(provider)),
+            actionButton: _buildActionButton(provider, context)),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         body: Stack(
@@ -54,9 +54,9 @@ class MissionPage extends StatelessWidget {
     );
   }
 
-  _buildActionButton(MissionProvider provider) {
+  _buildActionButton(MissionProvider provider, BuildContext context) {
     return GestureDetector(
-      onTap: () => provider.setNewLayout(),
+      onTap: () => provider.setNewLayout(context),
       child: Container(
         margin: const EdgeInsets.only(right: 4, bottom: 4),
         decoration: BoxDecoration(

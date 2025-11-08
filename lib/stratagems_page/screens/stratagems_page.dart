@@ -99,6 +99,7 @@ class StratagemsPage extends StatelessWidget {
                               onTap: () {
                                 final StratagemsProvider provider =
                                     Provider.of<StratagemsProvider>(context, listen: false);
+
                                 provider.state.stratagemsSelectedForMission;
 
                                 final message = {
