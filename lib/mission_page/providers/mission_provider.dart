@@ -6,7 +6,6 @@ class MissionProvider extends ChangeNotifier {
 
   String getIconPath() {
     final String iconPath = state.gridIconPath;
-
     return iconPath;
   }
 
@@ -15,6 +14,4 @@ class MissionProvider extends ChangeNotifier {
     state.buttonsForRow = nextButtonDistribution < 2 ? 2 : nextButtonDistribution;
     notifyListeners();
   }
-
-  updateButtonsDistributionCount() {}
 }

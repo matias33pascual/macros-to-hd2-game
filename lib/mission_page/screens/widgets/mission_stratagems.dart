@@ -31,9 +31,4 @@ Widget _buildLayout(List<StratagemModel> stratagemsList, BuildContext context) {
     crossAxisCount: provider.state.buttonsForRow.toInt(),
     children: stratagemsList.map((stratagem) => StratagemGridButton(stratagem: stratagem)).toList(),
   );
-  // else if (stratagemsList.length < 3 || !provider.state.useGridLayout) {
-  //   return ListLayout(stratagemsList: stratagemsList);
-  // } else {
-  //   return GridLayout(stratagemsList: stratagemsList);
-  // }
 }

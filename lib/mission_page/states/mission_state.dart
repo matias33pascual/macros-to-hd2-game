@@ -7,8 +7,5 @@ class MissionState {
 
   double buttonsForRow = 4;
 
-  final String gridIconPath = "assets/images/grid_icon.webp";
-  final String listIconPath = "assets/images/list_icon.webp";
-
-  
+  final String gridIconPath = "assets/images/count.png";
 }

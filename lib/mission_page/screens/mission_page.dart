@@ -14,23 +14,14 @@ class MissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MissionProvider provider = Provider.of<MissionProvider>(context);
-
-    final StratagemsProvider stratagemsProvider =
-        Provider.of<StratagemsProvider>(context, listen: false);
-
-    final TranslationProvider translationProvider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider translationProvider = Provider.of<TranslationProvider>(context);
 
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(
-          title: translationProvider.translationTextOf["mission"].toUpperCase(),
-          color: Colors.blue[900]!.withValues(alpha: 0.2),
-          actionButton:
-              stratagemsProvider.state.stratagemsSelectedForMission.length > 2
-                  ? _buildActionButton(provider)
-                  : null,
-        ),
+            title: translationProvider.translationTextOf["mission"].toUpperCase(),
+            color: Colors.blue[900]!.withValues(alpha: 0.2),
+            actionButton: _buildActionButton(provider)),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         body: Stack(
@@ -67,8 +58,7 @@ class MissionPage extends StatelessWidget {
     return GestureDetector(
       onTap: () => provider.setNewLayout(),
       child: Container(
-        padding: const EdgeInsets.all(6),
-        margin: const EdgeInsets.only(right: 10, top: 7, bottom: 7),
+        margin: const EdgeInsets.only(right: 4, bottom: 4),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.indigo[700]!,
