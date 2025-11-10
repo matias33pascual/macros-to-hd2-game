@@ -11,11 +11,7 @@ class StratagemsSelectedWidget extends StatelessWidget {
     final SelectedProvider provider = Provider.of<SelectedProvider>(context);
 
     final List<_StratagemFrameIcon> list = provider.state.stratagemsSelectedForMission
-        .map((stratagemId) => _StratagemFrameIcon(
-              stratagemIcon: _StratagemIcon(
-                stratagemId: stratagemId,
-              ),
-            ))
+        .map((stratagemId) => _StratagemFrameIcon(stratagemIcon: _StratagemIcon(stratagemId: stratagemId)))
         .toList();
 
     if (list.length < provider.state.maxStratagemSelected) {
@@ -24,12 +20,7 @@ class StratagemsSelectedWidget extends StatelessWidget {
       }
     }
 
-    return GridView.count(
-      crossAxisCount: 5,
-      mainAxisSpacing: 2,
-      crossAxisSpacing: 2,
-      children: list,
-    );
+    return GridView.count(crossAxisCount: 5, mainAxisSpacing: 2, crossAxisSpacing: 2, children: list);
   }
 }
 
@@ -57,10 +48,7 @@ class _StratagemIcon extends StatelessWidget {
 }
 
 class _StratagemFrameIcon extends StatelessWidget {
-  const _StratagemFrameIcon({
-    Key? key,
-    this.stratagemIcon,
-  }) : super(key: key);
+  const _StratagemFrameIcon({Key? key, this.stratagemIcon}) : super(key: key);
 
   final _StratagemIcon? stratagemIcon;
 
@@ -71,40 +59,8 @@ class _StratagemFrameIcon extends StatelessWidget {
       width: 50,
       height: 50,
       padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.amber,
-          width: 1,
-        ),
-      ),
+      decoration: BoxDecoration(border: Border.all(color: Colors.amber, width: 1)),
       child: stratagemIcon,
     );
   }
 }
-
-// class _StratagemFrameIcon extends StatelessWidget {
-//   const _StratagemFrameIcon({
-//     Key? key,
-//     this.stratagem,
-//   }) : super(key: key);
-
-//   final StratagemModel? stratagem;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: const EdgeInsets.all(4),
-//       width: 50,
-//       height: 50,
-//       padding: const EdgeInsets.all(2),
-//       decoration: BoxDecoration(
-//         color: Colors.black.withOpacity(0.7),
-//         border: Border.all(
-//           color: Colors.amber,
-//           width: 1,
-//         ),
-//       ),
-//       child: stratagem != null ? Image.asset(stratagem!.icon) : null,
-//     );
-//   }
-// }
