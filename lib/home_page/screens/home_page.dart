@@ -9,7 +9,6 @@ import 'package:macros_to_helldivers/shared/translation/translation_state.dart';
 import 'package:macros_to_helldivers/shared/ui/exports_shared.dart';
 import 'package:macros_to_helldivers/stratagems_page/screens/stratagems_page.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -70,33 +69,36 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(height: 50),
                                   _buildButtons(context),
                                   const SizedBox(height: 60),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          const Text(
-                                            "By Matias Pascual",
-                                            style: TextStyle(color: Colors.amber, fontSize: 20),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                          const Text(
-                                            "matias33pascual@gmail.com",
-                                            style: TextStyle(color: Colors.white, fontSize: 20),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
                           ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  const Text(
+                                    "By Matias Pascual",
+                                    style: TextStyle(color: Colors.amber, fontSize: 20),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                  const Text(
+                                    "matias33pascual@gmail.com",
+                                    style: TextStyle(color: Colors.white, fontSize: 20),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -288,7 +290,7 @@ class _HomePageState extends State<HomePage> {
         ),
         // Onboarding modal button
         GestureDetector(
-          onTap: () => _showLanguageBottomSheet(context),
+          onTap: () => _showOnBoarding(context),
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -298,9 +300,9 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Row(
               children: [
-                SizedBox(width: 40, child: translationProvider.flagIcon),
+                const SizedBox(width: 40, child: Icon(Icons.help_outline, color: Colors.white, size: 30)),
                 const SizedBox(width: 8),
-                CustomText(text: translationProvider.translationTextOf?["language"], size: 16, textColor: Colors.white),
+                CustomText(text: translationProvider.translationTextOf?["onboard"], size: 16, textColor: Colors.white),
               ],
             ),
           ),
@@ -378,46 +380,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-  }
-
-  void _openDownloadURL() {
-    final url = Uri.https('github.com', 'matias33pascual/macros-to-helldivers-pc/releases');
-
-    launchUrl(url, mode: LaunchMode.externalApplication);
-  }
-
-  void _openUserManualURL() {
-    String urlUserManual = "";
-
-    final LanguagesEnum currentLanguage = TranslationState.instance.currentLanguage;
-
-    switch (currentLanguage) {
-      case LanguagesEnum.russian:
-        urlUserManual = "view/manual-macros-ru/página-principal";
-        break;
-
-      case LanguagesEnum.portuguese:
-        urlUserManual = "view/manual-macros-pt/página-principal";
-        break;
-
-      case LanguagesEnum.spanish:
-        urlUserManual = "view/manual-macros-es/página-principal";
-        break;
-
-      case LanguagesEnum.english:
-        urlUserManual = "view/manual-macros-en/página-principal";
-        break;
-    }
-
-    final url = Uri.https('sites.google.com', urlUserManual);
-
-    launchUrl(url, mode: LaunchMode.externalApplication);
-  }
-
-  void _openVideoURL() {
-    final url = Uri.https('youtu.be', 'ff934Jjuvdo');
-
-    launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
   Container _buildConnectForm(BuildContext context) {
@@ -501,6 +463,159 @@ class _HomePageState extends State<HomePage> {
           textAlign: TextAlign.center,
         ),
       ],
+    );
+  }
+
+  void _showOnBoarding(BuildContext context) {
+    final TranslationProvider provider = Provider.of<TranslationProvider>(context, listen: false);
+    final PageController pageController = PageController();
+    int currentPage = 0;
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          backgroundColor: Colors.black,
+          insetPadding: const EdgeInsets.all(16),
+          contentPadding: const EdgeInsets.all(0),
+          shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.amber, width: 2)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomText(
+                maxLines: 3,
+                size: 18,
+                textAlign: TextAlign.center,
+                text: provider.translationTextOf?["onboard_title"],
+                textColor: Colors.amber,
+              ),
+            ],
+          ),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        currentPage = index;
+                      });
+                    },
+                    children: [
+                      // Step 1: Download
+                      _buildOnboardingStep(
+                        context,
+                        provider.translationTextOf?["onboard_step1_title"] ?? "",
+                        provider.translationTextOf?["onboard_step1_content"] ?? "",
+                      ),
+                      // Step 2: Install
+                      _buildOnboardingStep(
+                        context,
+                        provider.translationTextOf?["onboard_step2_title"] ?? "",
+                        provider.translationTextOf?["onboard_step2_content"] ?? "",
+                      ),
+                      // Step 3: Run & Connect
+                      _buildOnboardingStep(
+                        context,
+                        provider.translationTextOf?["onboard_step3_title"] ?? "",
+                        provider.translationTextOf?["onboard_step3_content"] ?? "",
+                      ),
+                    ],
+                  ),
+                ),
+                // Page indicators
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      3,
+                      (index) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: currentPage == index ? Colors.amber : Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Previous button
+                if (currentPage > 0)
+                  TextButton(
+                    onPressed: () {
+                      pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    },
+                    child: CustomButton(
+                      color: CustomButtonColors.gray,
+                      text: provider.translationTextOf?["onboard_previous"],
+                      height: 40,
+                    ),
+                  ),
+                const Spacer(),
+                // Next/Finish button
+                TextButton(
+                  onPressed: () {
+                    if (currentPage < 2) {
+                      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                    } else {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: CustomButton(
+                    color: CustomButtonColors.yellow,
+                    text: currentPage < 2
+                        ? (provider.translationTextOf?["onboard_next"] ?? "")
+                        : (provider.translationTextOf?["onboard_finish"] ?? ""),
+                    height: 40,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOnboardingStep(BuildContext context, String title, String content) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            text: title,
+            size: 20,
+            maxLines: 3,
+            textColor: Colors.amber,
+            textAlign: TextAlign.center,
+            strokeColor: Colors.black.withValues(alpha: 0.7),
+          ),
+          const SizedBox(height: 20),
+          CustomText(
+            text: content,
+            size: 16,
+            maxLines: 30,
+            textColor: Colors.white,
+            textAlign: TextAlign.left,
+            strokeColor: Colors.black.withValues(alpha: 0.5),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -26,5 +26,16 @@
   "support_thanks": "¡Gracias por tu apoyo!",
   "support_content": "La app se mantiene actualizada gracias al apoyo de los usuarios. Si te gusta la app, considera hacer una donación para ayudarme a seguir mejorándola. ¿Quieres continuar?",
   "support_continue": "Donar",
-  "support_cancel": "Cancelar"
+  "support_cancel": "Cancelar",
+  "onboard": "TUTORIAL",
+  "onboard_title": "Cómo Usar la Aplicación",
+  "onboard_step1_title": "Paso 1: Descargar",
+  "onboard_step1_content": "Primero, debes descargar la aplicación de escritorio desde:\n\nhttps://github.com/matias33pascual/macros-to-hd2-game-pc/releases/download/1.2.0/Macros.to.HD2.Game.PC-1.2.0.Setup.rar\n\nDescarga este archivo en tu computadora.",
+  "onboard_step2_title": "Paso 2: Instalar",
+  "onboard_step2_content": "Después de descargar, extrae e instala la aplicación en tu computadora. Sigue las instrucciones del asistente de instalación.",
+  "onboard_step3_title": "Paso 3: Ejecutar y Conectar",
+  "onboard_step3_content": "Abre el programa instalado en tu PC. Verás una DIRECCIÓN IP y un PUERTO mostrados.\n\nIngresa estos valores en esta aplicación móvil y presiona CONECTARSE para vincular tus dispositivos.\n\n¡Ahora estás listo para usar la aplicación!",
+  "onboard_next": "SIGUIENTE",
+  "onboard_previous": "ANTERIOR",
+  "onboard_finish": "FINALIZAR"
 }
