@@ -12,7 +12,7 @@ import 'package:macros_to_helldivers/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class StratagemsPage extends StatelessWidget {
-  const StratagemsPage({Key? key}) : super(key: key);
+  const StratagemsPage({super.key});
 
   static String routeName = "stratagems_page";
 
@@ -30,7 +30,7 @@ class StratagemsPage extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.black,
             appBar: CustomAppBar(
-              title: provider.translationTextOf["stratagems_title"],
+              title: provider.translationTextOf?["stratagems_title"],
               color: AppTheme.colors.darkRed,
               onBackButtonPressed: () => ConnectionService.instance.disconnect(),
             ),
@@ -81,7 +81,7 @@ class StratagemsPage extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: CustomText(
-                              text: translationProvider.translationTextOf["selected_for_mission"],
+                              text: translationProvider.translationTextOf?["selected_for_mission"],
                               size: 16,
                             ),
                           ),
@@ -118,7 +118,7 @@ class StratagemsPage extends StatelessWidget {
                               },
                               child: CustomButton(
                                 color: CustomButtonColors.yellow,
-                                text: translationProvider.translationTextOf["start_button"],
+                                text: translationProvider.translationTextOf?["start_button"],
                                 height: 40,
                               ),
                             ),
@@ -154,7 +154,7 @@ class StratagemsPage extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       CustomText(
-                                        text: translationProvider.translationTextOf["selected_for_mission"],
+                                        text: translationProvider.translationTextOf?["selected_for_mission"],
                                         size: 16,
                                       ),
                                       Expanded(
@@ -185,7 +185,7 @@ class StratagemsPage extends StatelessWidget {
                                         },
                                         child: CustomButton(
                                           color: CustomButtonColors.yellow,
-                                          text: translationProvider.translationTextOf["start_button"],
+                                          text: translationProvider.translationTextOf?["start_button"],
                                           height: 40,
                                         ),
                                       ),
@@ -235,7 +235,7 @@ class StratagemsPage extends StatelessWidget {
     );
   }
 
-  _buildBackground(BuildContext context) {
+  Image _buildBackground(BuildContext context) {
     return Image.asset(
       "assets/images/stratagems_background.webp",
       width: MediaQuery.of(context).size.width,

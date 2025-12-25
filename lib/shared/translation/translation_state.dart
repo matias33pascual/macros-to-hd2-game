@@ -13,8 +13,7 @@ extension LanguagesEnumExtension on LanguagesEnum {
         return 'ru';
 
       case LanguagesEnum.spanish:
-      default:
-        return 'es';
+      return 'es';
     }
   }
 
@@ -70,8 +69,7 @@ class TranslationState {
         return russianTranslation;
 
       case LanguagesEnum.english:
-      default:
-        return englishTranslation;
+      return englishTranslation;
     }
   }
 }

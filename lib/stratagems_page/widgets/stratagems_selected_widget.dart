@@ -4,7 +4,7 @@ import 'package:macros_to_helldivers/stratagems_page/providers/exports_providers
 import 'package:provider/provider.dart';
 
 class StratagemsSelectedWidget extends StatelessWidget {
-  const StratagemsSelectedWidget({Key? key}) : super(key: key);
+  const StratagemsSelectedWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class StratagemsSelectedWidget extends StatelessWidget {
 class _StratagemIcon extends StatelessWidget {
   final String stratagemId;
 
-  const _StratagemIcon({Key? key, required this.stratagemId}) : super(key: key);
+  const _StratagemIcon({required this.stratagemId});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _StratagemIcon extends StatelessWidget {
 }
 
 class _StratagemFrameIcon extends StatelessWidget {
-  const _StratagemFrameIcon({Key? key, this.stratagemIcon}) : super(key: key);
+  const _StratagemFrameIcon({this.stratagemIcon});
 
   final _StratagemIcon? stratagemIcon;
 

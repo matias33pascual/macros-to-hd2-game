@@ -5,78 +5,46 @@ import 'package:macros_to_helldivers/stratagems_page/providers/exports_providers
 import 'package:provider/provider.dart';
 
 class TabMenuWidget extends StatelessWidget {
-  const TabMenuWidget({Key? key}) : super(key: key);
+  const TabMenuWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TabsMenuProvider tabsMenuProviders =
-        Provider.of<TabsMenuProvider>(context);
+    final TabsMenuProvider tabsMenuProviders = Provider.of<TabsMenuProvider>(context);
 
-    final StratagemsProvider stratagemsProvider =
-        Provider.of<StratagemsProvider>(context, listen: false);
+    final StratagemsProvider stratagemsProvider = Provider.of<StratagemsProvider>(context, listen: false);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _MenuTab(
           text: TabsMenuEnum.mission.getStringValue(context),
-          isSelected: tabsMenuProviders.isThisMenuSelected(
-            TabsMenuEnum.mission,
-          ),
-          onTapHandler: () => stratagemsProvider.onTabMenuHandler(
-            TabsMenuEnum.mission,
-            context,
-          ),
+          isSelected: tabsMenuProviders.isThisMenuSelected(TabsMenuEnum.mission),
+          onTapHandler: () => stratagemsProvider.onTabMenuHandler(TabsMenuEnum.mission, context),
         ),
         _MenuTab(
           text: TabsMenuEnum.eagle.getStringValue(context),
-          isSelected: tabsMenuProviders.isThisMenuSelected(
-            TabsMenuEnum.eagle,
-          ),
-          onTapHandler: () => stratagemsProvider.onTabMenuHandler(
-            TabsMenuEnum.eagle,
-            context,
-          ),
+          isSelected: tabsMenuProviders.isThisMenuSelected(TabsMenuEnum.eagle),
+          onTapHandler: () => stratagemsProvider.onTabMenuHandler(TabsMenuEnum.eagle, context),
         ),
         _MenuTab(
           text: TabsMenuEnum.orbital.getStringValue(context),
-          isSelected: tabsMenuProviders.isThisMenuSelected(
-            TabsMenuEnum.orbital,
-          ),
-          onTapHandler: () => stratagemsProvider.onTabMenuHandler(
-            TabsMenuEnum.orbital,
-            context,
-          ),
+          isSelected: tabsMenuProviders.isThisMenuSelected(TabsMenuEnum.orbital),
+          onTapHandler: () => stratagemsProvider.onTabMenuHandler(TabsMenuEnum.orbital, context),
         ),
         _MenuTab(
           text: TabsMenuEnum.weapons.getStringValue(context),
-          isSelected: tabsMenuProviders.isThisMenuSelected(
-            TabsMenuEnum.weapons,
-          ),
-          onTapHandler: () => stratagemsProvider.onTabMenuHandler(
-            TabsMenuEnum.weapons,
-            context,
-          ),
+          isSelected: tabsMenuProviders.isThisMenuSelected(TabsMenuEnum.weapons),
+          onTapHandler: () => stratagemsProvider.onTabMenuHandler(TabsMenuEnum.weapons, context),
         ),
         _MenuTab(
           text: TabsMenuEnum.backpacks.getStringValue(context),
-          isSelected: tabsMenuProviders.isThisMenuSelected(
-            TabsMenuEnum.backpacks,
-          ),
-          onTapHandler: () => stratagemsProvider.onTabMenuHandler(
-            TabsMenuEnum.backpacks,
-            context,
-          ),
+          isSelected: tabsMenuProviders.isThisMenuSelected(TabsMenuEnum.backpacks),
+          onTapHandler: () => stratagemsProvider.onTabMenuHandler(TabsMenuEnum.backpacks, context),
         ),
         _MenuTab(
           text: TabsMenuEnum.defenses.getStringValue(context),
-          isSelected: tabsMenuProviders.isThisMenuSelected(
-            TabsMenuEnum.defenses,
-          ),
-          onTapHandler: () => stratagemsProvider.onTabMenuHandler(
-            TabsMenuEnum.defenses,
-            context,
-          ),
+          isSelected: tabsMenuProviders.isThisMenuSelected(TabsMenuEnum.defenses),
+          onTapHandler: () => stratagemsProvider.onTabMenuHandler(TabsMenuEnum.defenses, context),
         ),
       ],
     );
@@ -88,22 +56,12 @@ class _MenuTab extends StatelessWidget {
   final String text;
   final void Function()? onTapHandler;
 
-  const _MenuTab({
-    Key? key,
-    required this.text,
-    required this.isSelected,
-    required this.onTapHandler,
-  }) : super(key: key);
+  const _MenuTab({required this.text, required this.isSelected, required this.onTapHandler});
 
   @override
   Widget build(BuildContext context) {
     if (isSelected) {
-      return CustomText(
-        text: text,
-        strokeColor: Colors.black,
-        textColor: Colors.amber,
-        size: 12,
-      );
+      return CustomText(text: text, strokeColor: Colors.black, textColor: Colors.amber, size: 12);
     }
 
     return InkWell(

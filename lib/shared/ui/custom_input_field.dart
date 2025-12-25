@@ -8,12 +8,12 @@ class CustomInputField extends StatefulWidget {
   final Function(String)? onChangedHandle;
 
   const CustomInputField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.formKey,
     this.textInputType = TextInputType.text,
     this.onChangedHandle,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
@@ -37,7 +37,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
     super.dispose();
   }
 
-  _handleFocusChange() {
+  void _handleFocusChange() {
     setState(() {
       _hasFocus = _focusNode.hasFocus;
     });

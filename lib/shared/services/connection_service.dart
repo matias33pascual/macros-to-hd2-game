@@ -112,7 +112,7 @@ class ConnectionService {
     }
   }
 
-  sendMessage({String message = ""}) {
+  void sendMessage({String message = ""}) {
     channel?.sink.add(message);
   }
 

@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 class StratagemListButton extends StatefulWidget {
   const StratagemListButton({
-    Key? key,
+    super.key,
     required this.stratagem,
-  }) : super(key: key);
+  });
 
   final StratagemModel stratagem;
 

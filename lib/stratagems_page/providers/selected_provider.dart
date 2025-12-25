@@ -4,7 +4,7 @@ import 'package:macros_to_helldivers/stratagems_page/state/stratagems_state.dart
 class SelectedProvider extends ChangeNotifier {
   StratagemsState state = StratagemsState.instance;
 
-  update() {
+  void update() {
     notifyListeners();
   }
 }

@@ -5,7 +5,7 @@ import 'package:macros_to_helldivers/shared/ui/exports_shared.dart';
 import 'package:provider/provider.dart';
 
 class ConnectButton extends StatelessWidget {
-  const ConnectButton({Key? key}) : super(key: key);
+  const ConnectButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ConnectButton extends StatelessWidget {
 
     return CustomButton(
       color: provider.isFormValid ? CustomButtonColors.yellow : CustomButtonColors.gray,
-      text: translationProvider.translationTextOf["connect_button"],
+      text: translationProvider.translationTextOf?["connect_button"],
       height: 50,
     );
   }

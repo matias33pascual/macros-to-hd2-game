@@ -4,9 +4,9 @@ import 'package:macros_to_helldivers/stratagems_page/models/stratagems_model.dar
 
 class GridLayout extends StatelessWidget {
   const GridLayout({
-    Key? key,
+    super.key,
     required this.stratagemsList,
-  }) : super(key: key);
+  });
 
   final List<StratagemModel> stratagemsList;
 

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../shared/translation/translation_provider.dart';
 
 class TestAppButton extends StatelessWidget {
-  const TestAppButton({Key? key}) : super(key: key);
+  const TestAppButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class TestAppButton extends StatelessWidget {
 
     return CustomButton(
       color: CustomButtonColors.yellow,
-      text: translationProvider.translationTextOf["test_app_button"],
+      text: translationProvider.translationTextOf?["test_app_button"],
       height: 50,
       fontSize: 14,
     );

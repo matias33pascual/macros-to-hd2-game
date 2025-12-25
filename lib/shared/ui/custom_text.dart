@@ -11,7 +11,7 @@ class CustomText extends StatelessWidget {
   final String? fontFamily;
 
   const CustomText({
-    Key? key,
+    super.key,
     required this.text,
     this.size = 12,
     this.strokeColor = Colors.black,
@@ -20,7 +20,7 @@ class CustomText extends StatelessWidget {
     this.maxLines = 1,
     this.textAlign = TextAlign.center,
     this.fontFamily = "roboto",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -8,10 +8,10 @@ class VerticalBar extends StatelessWidget {
   final VerticalBarSide side;
 
   const VerticalBar({
-    Key? key,
+    super.key,
     required this.height,
     required this.side,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

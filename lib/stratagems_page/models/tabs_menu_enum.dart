@@ -6,24 +6,21 @@ enum TabsMenuEnum { mission, defenses, eagle, orbital, weapons, backpacks }
 
 extension TabMenuEnumExtension on TabsMenuEnum {
   String getStringValue(BuildContext context) {
-    final TranslationProvider provider =
-        Provider.of<TranslationProvider>(context);
+    final TranslationProvider provider = Provider.of<TranslationProvider>(context);
 
     switch (this) {
       case TabsMenuEnum.mission:
-        return provider.translationTextOf["stratagems_mission"];
+        return provider.translationTextOf?["stratagems_mission"];
       case TabsMenuEnum.defenses:
-        return provider.translationTextOf["stratagems_defenses"];
+        return provider.translationTextOf?["stratagems_defenses"];
       case TabsMenuEnum.eagle:
-        return provider.translationTextOf["stratagems_eagle"];
+        return provider.translationTextOf?["stratagems_eagle"];
       case TabsMenuEnum.orbital:
-        return provider.translationTextOf["stratagems_orbital"];
+        return provider.translationTextOf?["stratagems_orbital"];
       case TabsMenuEnum.weapons:
-        return provider.translationTextOf["stratagems_weapons"];
+        return provider.translationTextOf?["stratagems_weapons"];
       case TabsMenuEnum.backpacks:
-        return provider.translationTextOf["stratagems_backpacks"];
-      default:
-        return '';
+        return provider.translationTextOf?["stratagems_backpacks"];
     }
   }
 }

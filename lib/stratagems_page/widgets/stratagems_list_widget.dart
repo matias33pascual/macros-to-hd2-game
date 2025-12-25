@@ -5,7 +5,7 @@ import 'package:macros_to_helldivers/stratagems_page/providers/exports_providers
 import 'package:provider/provider.dart';
 
 class StratagemsListWidget extends StatelessWidget {
-  const StratagemsListWidget({Key? key}) : super(key: key);
+  const StratagemsListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

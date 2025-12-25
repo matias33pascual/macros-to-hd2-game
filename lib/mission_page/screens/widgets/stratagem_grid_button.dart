@@ -6,9 +6,9 @@ import 'package:macros_to_helldivers/stratagems_page/models/stratagems_model.dar
 
 class StratagemGridButton extends StatefulWidget {
   const StratagemGridButton({
-    Key? key,
+    super.key,
     required this.stratagem,
-  }) : super(key: key);
+  });
 
   final StratagemModel stratagem;
 

@@ -32,7 +32,7 @@ class StratagemsProvider extends ChangeNotifier {
     }
   }
 
-  _divideStratagemsTypesList() {
+  void _divideStratagemsTypesList() {
     for (var stratagem in state.stratagems) {
       switch (stratagem.type) {
         case StratagemTypesEnum.mission:
@@ -61,7 +61,7 @@ class StratagemsProvider extends ChangeNotifier {
     }
   }
 
-  onHorizontalGestureHandler(DragEndDetails details, BuildContext context) {
+  void onHorizontalGestureHandler(DragEndDetails details, BuildContext context) {
     if (details.velocity.pixelsPerSecond.dx > 0) {
       _moveToPreviousTabMenu(context);
     } else if (details.velocity.pixelsPerSecond.dx < 0) {
@@ -69,7 +69,7 @@ class StratagemsProvider extends ChangeNotifier {
     }
   }
 
-  _moveToNextTabMenu(BuildContext context) {
+  void _moveToNextTabMenu(BuildContext context) {
     switch (state.tabMenuSelected) {
       case TabsMenuEnum.mission:
         onTabMenuHandler(TabsMenuEnum.eagle, context);
@@ -89,12 +89,10 @@ class StratagemsProvider extends ChangeNotifier {
       case TabsMenuEnum.defenses:
         onTabMenuHandler(TabsMenuEnum.mission, context);
         break;
-      default:
-        break;
     }
   }
 
-  _moveToPreviousTabMenu(BuildContext context) {
+  void _moveToPreviousTabMenu(BuildContext context) {
     switch (state.tabMenuSelected) {
       case TabsMenuEnum.mission:
         onTabMenuHandler(TabsMenuEnum.defenses, context);
@@ -114,14 +112,11 @@ class StratagemsProvider extends ChangeNotifier {
       case TabsMenuEnum.orbital:
         onTabMenuHandler(TabsMenuEnum.eagle, context);
         break;
-      default:
-        break;
     }
   }
 
-  onTabMenuHandler(TabsMenuEnum tabMenuSelected, BuildContext context) {
-    final TabsMenuProvider tabMenuProvider =
-        Provider.of<TabsMenuProvider>(context, listen: false);
+  void onTabMenuHandler(TabsMenuEnum tabMenuSelected, BuildContext context) {
+    final TabsMenuProvider tabMenuProvider = Provider.of<TabsMenuProvider>(context, listen: false);
 
     state.tabMenuSelected = tabMenuSelected;
     state.listToShow = _getListToShowByTabMenu();
@@ -130,19 +125,16 @@ class StratagemsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  isSelected(StratagemModel stratagem) {
-    return state.stratagemsSelectedForMission.any(
-        (String stratagemSelectedId) => stratagem.id == stratagemSelectedId);
+  bool isSelected(StratagemModel stratagem) {
+    return state.stratagemsSelectedForMission.any((String stratagemSelectedId) => stratagem.id == stratagemSelectedId);
   }
 
-  onStratagemsListItemTap(StratagemModel stratagem, BuildContext context) {
-    final SelectedProvider selectedProvider =
-        Provider.of<SelectedProvider>(context, listen: false);
+  void onStratagemsListItemTap(StratagemModel stratagem, BuildContext context) {
+    final SelectedProvider selectedProvider = Provider.of<SelectedProvider>(context, listen: false);
 
     if (isSelected(stratagem)) {
       state.stratagemsSelectedForMission.remove(stratagem.id);
-    } else if (state.stratagemsSelectedForMission.length <
-        state.maxStratagemSelected) {
+    } else if (state.stratagemsSelectedForMission.length < state.maxStratagemSelected) {
       state.stratagemsSelectedForMission.add(stratagem.id);
     }
 
@@ -150,11 +142,10 @@ class StratagemsProvider extends ChangeNotifier {
     selectedProvider.update();
   }
 
-  onSelectedIconTap(String stratagemId, BuildContext context) {
+  void onSelectedIconTap(String stratagemId, BuildContext context) {
     state.stratagemsSelectedForMission.remove(stratagemId);
 
-    final SelectedProvider selectedProvider =
-        Provider.of<SelectedProvider>(context, listen: false);
+    final SelectedProvider selectedProvider = Provider.of<SelectedProvider>(context, listen: false);
 
     selectedProvider.update();
     notifyListeners();
@@ -167,11 +158,10 @@ class StratagemsProvider extends ChangeNotifier {
       }
     }
 
-    throw Exception(
-        "Error en stratagemsProvider.getStratagemById: No se encontro la estratagema");
+    throw Exception("Error en stratagemsProvider.getStratagemById: No se encontro la estratagema");
   }
 
-  _getListToShowByTabMenu() {
+  List<StratagemModel> _getListToShowByTabMenu() {
     switch (state.tabMenuSelected) {
       case TabsMenuEnum.backpacks:
         return state.backpacksStratagemsList;
@@ -189,7 +179,6 @@ class StratagemsProvider extends ChangeNotifier {
         return state.weaponsStratagemsList;
 
       case TabsMenuEnum.mission:
-      default:
         return state.missionStratagemsList;
     }
   }

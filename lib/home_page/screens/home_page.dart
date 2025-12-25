@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   static String routeName = "home_page";
 
@@ -60,10 +60,7 @@ class _HomePageState extends State<HomePage> {
                         _buildMacroTitle(),
                         Stack(
                           children: [
-                            const Image(
-                              image: AssetImage("assets/images/home_background.webp"),
-                              fit: BoxFit.cover,
-                            ),
+                            const Image(image: AssetImage("assets/images/home_background.webp"), fit: BoxFit.fill),
                             Padding(
                               padding: const EdgeInsets.all(16),
                               child: Column(
@@ -75,34 +72,32 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(height: 60),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      InkWell(
-                                        onTap: () => {
-                                          launchUrl(
-                                            Uri.https('github.com', 'matias33pascual'),
-                                            mode: LaunchMode.externalApplication,
-                                          )
-                                        },
-                                        child: const Text(
-                                          "By Matias Pascual",
-                                          style: TextStyle(
-                                            color: Colors.blue,
-                                            decoration: TextDecoration.underline,
-                                            fontSize: 18,
-                                            decorationColor: Colors.blue,
-                                            decorationStyle: TextDecorationStyle.solid,
-                                            decorationThickness: 2,
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          const Text(
+                                            "By Matias Pascual",
+                                            style: TextStyle(color: Colors.amber, fontSize: 20),
+                                            textAlign: TextAlign.end,
                                           ),
-                                          textAlign: TextAlign.end,
-                                        ),
+                                          const Text(
+                                            "matias33pascual@gmail.com",
+                                            style: TextStyle(color: Colors.white, fontSize: 20),
+                                            textAlign: TextAlign.end,
+                                          ),
+                                        ],
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -112,8 +107,10 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
                     children: [
+                      // Left Side: Title, Background and Buttons
                       Expanded(
                         child: Container(
+                          height: MediaQuery.of(context).size.height,
                           padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 10),
                           decoration: const BoxDecoration(
                             image: DecorationImage(
@@ -121,47 +118,47 @@ class _HomePageState extends State<HomePage> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [_buildMacroTitle(), const SizedBox(height: 30), _buildButtons(context)],
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 64),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [_buildMacroTitle(), const SizedBox(height: 30), _buildButtons(context)],
+                            ),
                           ),
                         ),
                       ),
+                      // Right Side: Connection Form and Footer
                       Expanded(
                         child: Container(
+                          height: MediaQuery.of(context).size.height,
                           color: Colors.grey.withValues(alpha: 0.2),
                           padding: const EdgeInsets.all(16),
                           child: Column(
                             children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [_buildConnectForm(context)],
-                              ),
+                              Column(mainAxisSize: MainAxisSize.min, children: [_buildConnectForm(context)]),
                               const SizedBox(height: 30),
-                              InkWell(
-                                onTap: () => {
-                                  launchUrl(
-                                    Uri.https('github.com', 'matias33pascual'),
-                                    mode: LaunchMode.externalApplication,
-                                  )
-                                },
-                                child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "By Matias Pascual",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 18,
-                                        decorationColor: Colors.blue,
-                                        decorationStyle: TextDecorationStyle.solid,
-                                        decorationThickness: 2,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      const Text(
+                                        "By Matias Pascual",
+                                        style: TextStyle(color: Colors.amber, fontSize: 20),
+                                        textAlign: TextAlign.end,
                                       ),
-                                      textAlign: TextAlign.end,
-                                    ),
-                                  ],
-                                ),
+                                      const Text(
+                                        "matias33pascual@gmail.com",
+                                        style: TextStyle(color: Colors.white, fontSize: 20),
+                                        textAlign: TextAlign.end,
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -188,20 +185,29 @@ class _HomePageState extends State<HomePage> {
         contentPadding: const EdgeInsets.all(24),
         shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.amber, width: 1)),
         title: CustomText(
-            maxLines: 10, size: 16, textAlign: TextAlign.center, text: provider.translationTextOf["error_title"]),
+          maxLines: 10,
+          size: 16,
+          textAlign: TextAlign.center,
+          text: provider.translationTextOf?["error_title"],
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomText(
-                maxLines: 20, size: 14, textAlign: TextAlign.center, text: provider.translationTextOf["error_message"]),
+              maxLines: 20,
+              size: 14,
+              textAlign: TextAlign.center,
+              text: provider.translationTextOf?["error_message"],
+            ),
             const SizedBox(height: 8),
             const CustomText(
-                maxLines: 20,
-                size: 14,
-                textAlign: TextAlign.center,
-                strokeColor: Colors.black,
-                textColor: Colors.amber,
-                text: " Macros to HD2 Game PC"),
+              maxLines: 20,
+              size: 14,
+              textAlign: TextAlign.center,
+              strokeColor: Colors.black,
+              textColor: Colors.amber,
+              text: " Macros to HD2 Game PC",
+            ),
           ],
         ),
         actions: <Widget>[
@@ -210,14 +216,17 @@ class _HomePageState extends State<HomePage> {
               Navigator.of(context).pop();
             },
             child: CustomButton(
-                color: CustomButtonColors.yellow, text: provider.translationTextOf["close_button"], height: 40),
+              color: CustomButtonColors.yellow,
+              text: provider.translationTextOf?["close_button"],
+              height: 40,
+            ),
           ),
         ],
       ),
     );
   }
 
-  _buildMacroTitle() {
+  Padding _buildMacroTitle() {
     final Orientation orientation = MediaQuery.of(context).orientation;
 
     return Padding(
@@ -229,19 +238,21 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomText(
-                  text: "Macros to",
-                  maxLines: 2,
-                  size: 35,
-                  textColor: Colors.white,
-                  strokeColor: Colors.black.withValues(alpha: 0.8),
-                  fontFamily: "helldivers"),
+                text: "Macros to",
+                maxLines: 2,
+                size: 35,
+                textColor: Colors.white,
+                strokeColor: Colors.black.withValues(alpha: 0.8),
+                fontFamily: "helldivers",
+              ),
               CustomText(
-                  text: "HD2 Game",
-                  maxLines: 2,
-                  size: 55,
-                  textColor: Colors.amber[400]!,
-                  strokeColor: Colors.black.withValues(alpha: 0.8),
-                  fontFamily: "helldivers"),
+                text: "HD2 Game",
+                maxLines: 2,
+                size: 55,
+                textColor: Colors.amber[400]!,
+                strokeColor: Colors.black.withValues(alpha: 0.8),
+                fontFamily: "helldivers",
+              ),
             ],
           ),
         ],
@@ -256,121 +267,40 @@ class _HomePageState extends State<HomePage> {
       spacing: 12,
       mainAxisSize: MainAxisSize.min,
       children: [
+        // Set Language Button
         GestureDetector(
           onTap: () => _showLanguageBottomSheet(context),
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
-              border: const Border.fromBorderSide(
-                BorderSide(width: 2, color: Colors.grey),
-              ),
+              border: const Border.fromBorderSide(BorderSide(width: 2, color: Colors.grey)),
               color: Colors.grey.withValues(alpha: 0.5),
             ),
             child: Row(
               children: [
-                SizedBox(
-                  width: 40,
-                  child: translationProvider.flagIcon,
-                ),
+                SizedBox(width: 40, child: translationProvider.flagIcon),
                 const SizedBox(width: 8),
-                CustomText(
-                  text: translationProvider.translationTextOf["language"],
-                  size: 16,
-                  textColor: Colors.white,
-                ),
+                CustomText(text: translationProvider.translationTextOf?["language"], size: 16, textColor: Colors.white),
               ],
             ),
           ),
         ),
+        // Onboarding modal button
         GestureDetector(
-          onTap: _openUserManualURL,
+          onTap: () => _showLanguageBottomSheet(context),
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
-              border: Border.fromBorderSide(
-                BorderSide(width: 2, color: Colors.orange[500]!),
-              ),
-              color: Colors.orange[300]!.withValues(alpha: 0.5),
+              border: const Border.fromBorderSide(BorderSide(width: 2, color: Colors.grey)),
+              color: Colors.grey.withValues(alpha: 0.5),
             ),
             child: Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(2),
-                  width: 40,
-                  child: Image.asset("assets/images/manual.webp"),
-                ),
+                SizedBox(width: 40, child: translationProvider.flagIcon),
                 const SizedBox(width: 8),
-                CustomText(
-                  text: translationProvider.translationTextOf["how_to"],
-                  size: 16,
-                  textColor: Colors.white,
-                ),
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: _openVideoURL,
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-              border: Border.fromBorderSide(
-                BorderSide(width: 2, color: Colors.red[300]!),
-              ),
-              color: Colors.red[500]!.withValues(alpha: 0.5),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(2),
-                  width: 40,
-                  child: Image.asset("assets/images/youtube.webp"),
-                ),
-                const SizedBox(width: 8),
-                CustomText(
-                  text: translationProvider.translationTextOf["video_tutorial"],
-                  size: 16,
-                  textColor: Colors.white,
-                ),
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: _openDownloadURL,
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            decoration: BoxDecoration(
-              border: Border.fromBorderSide(
-                BorderSide(width: 2, color: Colors.blue[200]!),
-              ),
-              color: Colors.blue[300]!.withValues(alpha: 0.7),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(2),
-                  width: 40,
-                  child: Image.asset("assets/images/github_b.webp"),
-                ),
-                const SizedBox(width: 6),
-                Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  CustomText(
-                    text: translationProvider.translationTextOf["download_pc"],
-                    size: 14,
-                    textColor: Colors.white,
-                  ),
-                  const SizedBox(width: 8),
-                  const CustomText(
-                    text: "v1.2.0",
-                    size: 12,
-                  )
-                ])
+                CustomText(text: translationProvider.translationTextOf?["language"], size: 16, textColor: Colors.white),
               ],
             ),
           ),
@@ -383,97 +313,71 @@ class _HomePageState extends State<HomePage> {
     final TranslationProvider provider = Provider.of<TranslationProvider>(context, listen: false);
 
     showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.grey[900]!.withValues(alpha: 0.8),
-        shape: RoundedRectangleBorder(
-            side: BorderSide(width: 1, color: Colors.grey[600]!),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(8))),
-        builder: (context) => ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+      context: context,
+      backgroundColor: Colors.grey[900]!.withValues(alpha: 0.8),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(width: 1, color: Colors.grey[600]!),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+      ),
+      builder: (context) => ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+        children: [
+          GestureDetector(
+            onTap: () {
+              provider.setCurrentLanguage(LanguagesEnum.spanish);
+              Navigator.of(context).pop();
+            },
+            child: Row(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    provider.setCurrentLanguage(LanguagesEnum.spanish);
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: Image.asset("assets/images/flag-argentina.webp"),
-                      ),
-                      const SizedBox(width: 8),
-                      const CustomText(
-                        text: "ESPAÑOL",
-                        size: 16,
-                        textColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    provider.setCurrentLanguage(LanguagesEnum.portuguese);
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: Image.asset("assets/images/flag-brasil.webp"),
-                      ),
-                      const SizedBox(width: 8),
-                      const CustomText(
-                        text: "PORTUGUESE",
-                        size: 16,
-                        textColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    provider.setCurrentLanguage(LanguagesEnum.english);
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: Image.asset("assets/images/flag-usa.webp"),
-                      ),
-                      const SizedBox(width: 8),
-                      const CustomText(
-                        text: "ENGLISH",
-                        size: 16,
-                        textColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    provider.setCurrentLanguage(LanguagesEnum.russian);
-                    Navigator.of(context).pop();
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: Image.asset("assets/images/flag-rusia.webp"),
-                      ),
-                      const SizedBox(width: 8),
-                      const CustomText(
-                        text: "РУССКИЙ",
-                        size: 16,
-                        textColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
+                SizedBox(width: 40, child: Image.asset("assets/images/flag-argentina.webp")),
+                const SizedBox(width: 8),
+                const CustomText(text: "ESPAÑOL", size: 16, textColor: Colors.white),
               ],
-            ));
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              provider.setCurrentLanguage(LanguagesEnum.portuguese);
+              Navigator.of(context).pop();
+            },
+            child: Row(
+              children: [
+                SizedBox(width: 40, child: Image.asset("assets/images/flag-brasil.webp")),
+                const SizedBox(width: 8),
+                const CustomText(text: "PORTUGUESE", size: 16, textColor: Colors.white),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              provider.setCurrentLanguage(LanguagesEnum.english);
+              Navigator.of(context).pop();
+            },
+            child: Row(
+              children: [
+                SizedBox(width: 40, child: Image.asset("assets/images/flag-usa.webp")),
+                const SizedBox(width: 8),
+                const CustomText(text: "ENGLISH", size: 16, textColor: Colors.white),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              provider.setCurrentLanguage(LanguagesEnum.russian);
+              Navigator.of(context).pop();
+            },
+            child: Row(
+              children: [
+                SizedBox(width: 40, child: Image.asset("assets/images/flag-rusia.webp")),
+                const SizedBox(width: 8),
+                const CustomText(text: "РУССКИЙ", size: 16, textColor: Colors.white),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _openDownloadURL() {
@@ -501,15 +405,11 @@ class _HomePageState extends State<HomePage> {
         break;
 
       case LanguagesEnum.english:
-      default:
         urlUserManual = "view/manual-macros-en/página-principal";
         break;
     }
 
-    final url = Uri.https(
-      'sites.google.com',
-      urlUserManual,
-    );
+    final url = Uri.https('sites.google.com', urlUserManual);
 
     launchUrl(url, mode: LaunchMode.externalApplication);
   }
@@ -520,7 +420,7 @@ class _HomePageState extends State<HomePage> {
     launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
-  _buildConnectForm(BuildContext context) {
+  Container _buildConnectForm(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Column(
@@ -546,25 +446,18 @@ class _HomePageState extends State<HomePage> {
 
                     try {
                       ConnectionService.instance
-                          .connectToServer(
-                        provider.state.ipAddrress,
-                        provider.state.port,
-                        context,
-                      )
-                          .then(
-                        (value) {
-                          if (value) {
-                            navigator.pushNamed(StratagemsPage.routeName);
-                          } else {
-                            if (kDebugMode) {
-                              print("No se pudo conectar al servidor: ConnectionService return false.");
+                          .connectToServer(provider.state.ipAddrress, provider.state.port, context)
+                          .then((value) {
+                            if (value) {
+                              navigator.pushNamed(StratagemsPage.routeName);
+                            } else {
+                              if (kDebugMode) {
+                                print("No se pudo conectar al servidor: ConnectionService return false.");
+                              }
+                              provider.setMessageError(true);
                             }
-                            provider.setMessageError(true);
-                          }
-                        },
-                      ).onError(
-                        (error, stackTrace) => throw Exception(error),
-                      );
+                          })
+                          .onError((error, stackTrace) => throw Exception(error));
                     } catch (error) {
                       if (kDebugMode) {
                         print("No se pudo conectar al servidor: $error.");
@@ -575,23 +468,24 @@ class _HomePageState extends State<HomePage> {
                   child: const ConnectButton(),
                 ),
                 GestureDetector(
-                    onTap: () => Navigator.of(context).pushNamed(StratagemsPage.routeName),
-                    child: const TestAppButton()),
+                  onTap: () => Navigator.of(context).pushNamed(StratagemsPage.routeName),
+                  child: const TestAppButton(),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  _buildPanelTitle() {
+  Column _buildPanelTitle() {
     final TranslationProvider provider = Provider.of<TranslationProvider>(context);
 
     return Column(
       children: [
         CustomText(
-          text: provider.translationTextOf["input_hint"],
+          text: provider.translationTextOf?["input_hint"],
           size: 16,
           maxLines: 2,
           textColor: Colors.white,

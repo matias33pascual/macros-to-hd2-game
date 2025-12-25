@@ -3,11 +3,10 @@ import 'package:macros_to_helldivers/mission_page/providers/mission_provider.dar
 import 'package:macros_to_helldivers/mission_page/screens/widgets/exports_widgets.dart';
 import 'package:macros_to_helldivers/shared/translation/translation_provider.dart';
 import 'package:macros_to_helldivers/shared/ui/exports_shared.dart';
-import 'package:macros_to_helldivers/stratagems_page/providers/exports_providers.dart';
 import 'package:provider/provider.dart';
 
 class MissionPage extends StatelessWidget {
-  const MissionPage({Key? key}) : super(key: key);
+  const MissionPage({super.key});
 
   static String routeName = "mission_page";
 
@@ -19,18 +18,13 @@ class MissionPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(
-            title: translationProvider.translationTextOf["mission"].toUpperCase(),
-            color: Colors.blue[900]!.withValues(alpha: 0.2),
-            actionButton: _buildActionButton(provider, context)),
+          title: translationProvider.translationTextOf?["mission"].toUpperCase(),
+          color: Colors.blue[900]!.withValues(alpha: 0.2),
+          actionButton: _buildActionButton(provider, context),
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            _buildBackground(context),
-            _buildPanel(context),
-            const MissionStratagems(),
-          ],
-        ),
+        body: Stack(children: [_buildBackground(context), _buildPanel(context), const MissionStratagems()]),
       ),
     );
   }
@@ -54,16 +48,13 @@ class MissionPage extends StatelessWidget {
     );
   }
 
-  _buildActionButton(MissionProvider provider, BuildContext context) {
+  GestureDetector _buildActionButton(MissionProvider provider, BuildContext context) {
     return GestureDetector(
       onTap: () => provider.setNewLayout(context),
       child: Container(
         margin: const EdgeInsets.only(right: 4, bottom: 4),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.indigo[700]!,
-            width: 2,
-          ),
+          border: Border.all(color: Colors.indigo[700]!, width: 2),
           borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         child: Image.asset(

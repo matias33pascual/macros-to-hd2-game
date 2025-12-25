@@ -4,7 +4,7 @@ import 'package:macros_to_helldivers/shared/translation/translation_provider.dar
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   static String routeName = "splash_page";
 

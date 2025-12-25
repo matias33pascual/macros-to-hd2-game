@@ -10,7 +10,7 @@ class TranslationService {
 
   static TranslationService get instance => _instance;
 
-  loadLanguages(String currentLanguage) async {
+  Future<dynamic> loadLanguages(String currentLanguage) async {
     try {
       String jsonString =
           await rootBundle.loadString('assets/languages/$currentLanguage.json');
@@ -25,7 +25,7 @@ class TranslationService {
     }
   }
 
-  loadStratagemsNameByLanguage(LanguagesEnum languages) async {
+  Future<dynamic> loadStratagemsNameByLanguage(LanguagesEnum languages) async {
     try {
       String jsonString = await rootBundle
           .loadString('assets/languages/stratagems_${languages.code}.json');

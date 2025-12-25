@@ -33,11 +33,11 @@ class TranslationProvider extends ChangeNotifier {
     state.stratagemsNamesInRussian = await service.loadStratagemsNameByLanguage(LanguagesEnum.russian);
   }
 
-  get translationTextOf {
+  Map<String, dynamic>? get translationTextOf {
     return state.translation;
   }
 
-  getTranslationOfStratagemName(String stratagemId) {
+  dynamic getTranslationOfStratagemName(String stratagemId) {
     switch (state.currentLanguage) {
       case LanguagesEnum.spanish:
         return state.stratagemsNamesInSpanish?[stratagemId] ?? "";
@@ -51,9 +51,7 @@ class TranslationProvider extends ChangeNotifier {
       case LanguagesEnum.russian:
         return state.stratagemsNamesInRussian?[stratagemId] ?? "";
 
-      default:
-        return "";
-    }
+      }
   }
 
   Future setCurrentLanguage(LanguagesEnum language) async {
@@ -89,7 +87,7 @@ class TranslationProvider extends ChangeNotifier {
     );
   }
 
-  get flagIcon {
+  Image get flagIcon {
     switch (state.currentLanguage) {
       case LanguagesEnum.portuguese:
         return Image.asset("assets/images/flag-brasil.webp");
@@ -101,8 +99,7 @@ class TranslationProvider extends ChangeNotifier {
         return Image.asset("assets/images/flag-usa.webp");
 
       case LanguagesEnum.spanish:
-      default:
-        return Image.asset("assets/images/flag-argentina.webp");
+      return Image.asset("assets/images/flag-argentina.webp");
     }
   }
 }

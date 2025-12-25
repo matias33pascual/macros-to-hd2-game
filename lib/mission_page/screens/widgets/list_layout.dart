@@ -3,7 +3,7 @@ import 'package:macros_to_helldivers/mission_page/screens/widgets/exports_widget
 import 'package:macros_to_helldivers/stratagems_page/models/stratagems_model.dart';
 
 class ListLayout extends StatelessWidget {
-  const ListLayout({Key? key, required this.stratagemsList}) : super(key: key);
+  const ListLayout({super.key, required this.stratagemsList});
 
   final List<StratagemModel> stratagemsList;
 
