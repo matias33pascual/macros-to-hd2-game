@@ -9,6 +9,7 @@ import 'package:macros_to_helldivers/shared/translation/translation_state.dart';
 import 'package:macros_to_helldivers/shared/ui/exports_shared.dart';
 import 'package:macros_to_helldivers/stratagems_page/screens/stratagems_page.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -67,7 +68,11 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   _buildConnectForm(context),
                                   const SizedBox(height: 50),
-                                  _buildButtons(context),
+
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                                    child: _buildButtons(context),
+                                  ),
                                   const SizedBox(height: 60),
                                 ],
                               ),
@@ -90,10 +95,25 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(color: Colors.amber, fontSize: 20),
                                     textAlign: TextAlign.end,
                                   ),
-                                  const Text(
-                                    "matias33pascual@gmail.com",
-                                    style: TextStyle(color: Colors.white, fontSize: 20),
-                                    textAlign: TextAlign.end,
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final Uri emailUri = Uri(scheme: 'mailto', path: 'matias33pascual@gmail.com');
+
+                                      try {
+                                        await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+                                      } catch (e) {
+                                        debugPrint('No email app available: $e');
+                                      }
+                                    },
+                                    child: const Text(
+                                      "matias33pascual@gmail.com",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                      textAlign: TextAlign.end,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -153,10 +173,22 @@ class _HomePageState extends State<HomePage> {
                                         style: TextStyle(color: Colors.amber, fontSize: 20),
                                         textAlign: TextAlign.end,
                                       ),
-                                      const Text(
-                                        "matias33pascual@gmail.com",
-                                        style: TextStyle(color: Colors.white, fontSize: 20),
-                                        textAlign: TextAlign.end,
+                                      GestureDetector(
+                                        onTap: () async {
+                                          final Uri emailUri = Uri(scheme: 'mailto', path: 'matias33pascual@gmail.com');
+                                          if (await canLaunchUrl(emailUri)) {
+                                            await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+                                          }
+                                        },
+                                        child: const Text(
+                                          "matias33pascual@gmail.com",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            decoration: TextDecoration.underline,
+                                          ),
+                                          textAlign: TextAlign.end,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -560,7 +592,7 @@ class _HomePageState extends State<HomePage> {
                       pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
                     },
                     child: CustomButton(
-                      color: CustomButtonColors.gray,
+                      color: CustomButtonColors.yellow,
                       text: provider.translationTextOf?["onboard_previous"],
                       height: 40,
                     ),
